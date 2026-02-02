@@ -22,7 +22,7 @@ class TranscriptAPI {
             retries = this.config.RATE_LIMIT.MAX_RETRIES,
             signal
         } = options;
-        
+
         // Check cache for GET requests
         if (method === 'GET' && !options.skipCache) {
             const cacheKey = this.getCacheKey(endpoint, params);
@@ -31,34 +31,28 @@ class TranscriptAPI {
                 return cached.data;
             }
         }
-        
+
         // Build URL with query parameters
         const url = this.buildURL(endpoint, params);
-        
+
         // Attempt request with retries
         let lastError;
         for (let attempt = 0; attempt <= retries; attempt++) {
             try {
-                // Check rate limit before request
-                await this.checkRateLimit();
-                
-                // Make request
+                // Make request to local Vercel API
                 const response = await fetch(url, {
                     method,
                     headers: {
-                        'Authorization': `Bearer ${this.config.API_KEY}`,
                         'Content-Type': 'application/json'
                     },
-                    signal
+                    signal,
+                    body: method === 'POST' ? JSON.stringify(params) : undefined
                 });
-                
-                // Update rate limit info from headers
-                this.updateRateLimit(response.headers);
-                
+
                 // Handle response
                 if (!response.ok) {
                     const error = await this.handleErrorResponse(response);
-                    
+
                     // Check if error is retryable
                     if (this.isRetryableError(error.status) && attempt < retries) {
                         const delay = this.getRetryDelay(error.status, response.headers, attempt);
@@ -66,13 +60,13 @@ class TranscriptAPI {
                         await this.sleep(delay);
                         continue;
                     }
-                    
+
                     throw error;
                 }
-                
+
                 // Parse response
                 const data = await response.json();
-                
+
                 // Cache successful GET requests
                 if (method === 'GET' && !options.skipCache) {
                     const cacheKey = this.getCacheKey(endpoint, params);
@@ -81,24 +75,24 @@ class TranscriptAPI {
                         timestamp: Date.now()
                     });
                 }
-                
+
                 return data;
-                
+
             } catch (error) {
                 lastError = error;
-                
+
                 // Don't retry if aborted
                 if (error.name === 'AbortError') {
                     throw error;
                 }
-                
+
                 // Don't retry certain errors
                 if (!this.isRetryableError(error.status)) {
                     throw error;
                 }
             }
         }
-        
+
         throw lastError;
     }
     
@@ -112,18 +106,18 @@ class TranscriptAPI {
             includeMetadata = false,
             signal
         } = options;
-        
+
         const params = {
-            video_url: videoUrl,
+            url: videoUrl,
             format: format,
             include_timestamp: includeTimestamp,
-            send_metadata: includeMetadata
+            include_metadata: includeMetadata
         };
-        
+
         return this.request(
             this.config.ENDPOINTS.TRANSCRIPT,
             params,
-            { signal }
+            { method: 'POST', signal }
         );
     }
     

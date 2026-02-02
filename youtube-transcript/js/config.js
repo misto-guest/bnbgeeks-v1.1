@@ -4,19 +4,19 @@
 
 const CONFIG = {
     // API Configuration
-    API_BASE_URL: 'https://transcriptapi.com',
-    API_KEY: 'sk_w43cQAOjub9kDKrJeyr4HR5WTJRkhXEm1Av2vZvUasY',
-    API_VERSION: 'v2',
-    
-    // Endpoints
+    API_BASE_URL: '', // Empty for local API (relative path)
+    API_KEY: '', // Not needed for local API
+    API_VERSION: 'v1',
+
+    // Endpoints (now using local Vercel serverless functions)
     ENDPOINTS: {
-        TRANSCRIPT: '/api/v2/youtube/transcript',
-        SEARCH: '/api/v2/youtube/search',
-        CHANNEL_RESOLVE: '/api/v2/youtube/channel/resolve',
-        CHANNEL_SEARCH: '/api/v2/youtube/channel/search',
-        CHANNEL_VIDEOS: '/api/v2/youtube/channel/videos',
-        CHANNEL_LATEST: '/api/v2/youtube/channel/latest',
-        PLAYLIST_VIDEOS: '/api/v2/youtube/playlist/videos'
+        TRANSCRIPT: '/api/youtube/transcript',
+        SEARCH: '', // Not implemented yet
+        CHANNEL_RESOLVE: '', // Not implemented yet
+        CHANNEL_SEARCH: '', // Not implemented yet
+        CHANNEL_VIDEOS: '', // Not implemented yet
+        CHANNEL_LATEST: '', // Not implemented yet
+        PLAYLIST_VIDEOS: '' // Not implemented yet
     },
     
     // Rate Limiting
