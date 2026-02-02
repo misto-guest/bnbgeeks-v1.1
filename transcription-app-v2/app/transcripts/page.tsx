@@ -6,7 +6,8 @@ import { Search, Plus, Clock, FileText, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { formatDuration, formatCost, formatRelativeTime } from '@/lib/utils/general'
+import { formatDuration, formatCost } from '@/lib/utils/transcript'
+import { formatRelativeTime } from '@/lib/utils/general'
 
 interface Transcript {
   id: string
@@ -34,10 +35,14 @@ export default function TranscriptsPage() {
   const fetchTranscripts = async () => {
     try {
       const response = await fetch('/api/transcripts')
+      if (!response.ok) {
+        throw new Error('Failed to fetch transcripts')
+      }
       const data = await response.json()
-      setTranscripts(data.transcripts)
+      setTranscripts(data.transcripts || [])
     } catch (error) {
       console.error('Error fetching transcripts:', error)
+      setTranscripts([])
     } finally {
       setLoading(false)
     }
@@ -45,7 +50,7 @@ export default function TranscriptsPage() {
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query)
-    
+
     if (query.length < 2) {
       setSearchResults([])
       return
@@ -54,10 +59,14 @@ export default function TranscriptsPage() {
     setIsSearching(true)
     try {
       const response = await fetch(`/api/transcripts/search?q=${encodeURIComponent(query)}`)
+      if (!response.ok) {
+        throw new Error('Search failed')
+      }
       const data = await response.json()
-      setSearchResults(data.results)
+      setSearchResults(data.results || [])
     } catch (error) {
       console.error('Error searching:', error)
+      setSearchResults([])
     } finally {
       setIsSearching(false)
     }
@@ -75,9 +84,9 @@ export default function TranscriptsPage() {
     }
   }
 
-  const displayTranscripts = searchQuery.length >= 2
+  const displayTranscripts: Transcript[] = searchQuery.length >= 2
     ? searchResults.map((r: any) => r.transcript)
-    : transcripts
+    : (transcripts || [])
 
   return (
     <div className="min-h-screen bg-background">
@@ -88,7 +97,7 @@ export default function TranscriptsPage() {
             <p className="text-muted-foreground mt-1">
               {searchQuery.length >= 2
                 ? `${searchResults.length} search results`
-                : `${transcripts.length} transcripts`}
+                : `${transcripts?.length || 0} transcripts`}
             </p>
           </div>
           <Link href="/transcripts/new">

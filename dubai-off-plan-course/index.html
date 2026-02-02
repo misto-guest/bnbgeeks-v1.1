@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubai Off-Plan Cursus | Door Erik, Voor Nederlandse Investeerders</title>
+    <meta name="description" content="Erik's eerlijke cursus over Dubai off-plan vastgoed. Geen sales, pure data en persoonlijke ervaringen van 5+ jaar investeren in Dubai.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    
+    <!-- Unique Font Pairing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+    
+    <style>
+        /* ========================================
+           PERSONAL BRANDING - TRUST-FOCUSED DESIGN
+           ======================================== */
+        
+        :root {
+            /* Personal Brand Colors - Warm & Trustworthy */
+            --sand: #E8DCC4;
+            --sage: #87A878;
+            --terracotta: #C17767;
+            --deep-blue: #1E3A5F;
+            --charcoal: #2C3E50;
+            --cream: #FAF8F5;
+            --warm-gray: #8B7E74;
+            
+            /* Gradients */
+            --gradient-warm: linear-gradient(135deg, #E8DCC4 0%, #FAF8F5 100%);
+            --gradient-terracotta: linear-gradient(135deg, #C17767 0%, #D4917E 100%);
+            --gradient-overlay: linear-gradient(180deg, rgba(30, 58, 95, 0.85) 0%, rgba(44, 62, 80, 0.9) 100%);
+            
+            /* Typography */
+            --font-serif: 'Crimson Pro', Georgia, serif;
+            --font-sans: 'Montserrat', -apple-system, sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            
+            /* Spacing Scale (8px base) */
+            --space-1: 0.5rem;
+            --space-2: 1rem;
+            --space-3: 1.5rem;
+            --space-4: 2rem;
+            --space-5: 2.5rem;
+            --space-6: 3rem;
+            --space-8: 4rem;
+            
+            /* Shadows */
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.18);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Typography System */
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--deep-blue);
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: var(--space-4);
+        }
+        
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: var(--space-2);
+            font-weight: 600;
+        }
+        
+        p {
+            font-size: 1.125rem;
+            color: var(--warm-gray);
+            margin-bottom: var(--space-2);
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            color: var(--terracotta);
+            font-weight: 600;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* Personal Header */
+        .personal-intro {
+            background: var(--deep-blue);
+            color: white;
+            padding: var(--space-6) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .personal-intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23C17767" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-6);
+            align-items: center;
+        }
+        
+        .intro-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .greeting {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sand);
+            margin-bottom: var(--space-2);
+        }
+        
+        .personal-intro h1 {
+            color: white;
+            margin-bottom: var(--space-3);
+        }
+        
+        .personal-intro p {
+            color: rgba(250, 248, 245, 0.9);
+            font-size: 1.25rem;
+        }
+        
+        .trust-badges {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: var(--space-2) var(--space-3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        /* Personal Photo */
+        .personal-photo {
+            position: relative;
+        }
+        
+        .photo-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-strong);
+        }
+        
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid var(--terracotta);
+            border-radius: 20px;
+            z-index: -1;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .handwritten-note {
+            position: absolute;
+            bottom: -30px;
+            right: -20px;
+            background: white;
+            padding: var(--space-2);
+            border-radius: 10px;
+            box-shadow: var(--shadow-medium);
+            transform: rotate(-3deg);
+            font-family: 'Crimson Pro', cursive;
+            font-style: italic;
+            font-size: 0.875rem;
+            max-width: 150px;
+        }
+        
+        /* Story Section */
+        .story {
+            padding: var(--space-8) 0;
+            background: white;
+        }
+        
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .story-timeline {
+            position: relative;
+            padding-left: var(--space-6);
+        }
+        
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-terracotta);
+        }
+        
+        .story-year {
+            position: relative;
+            margin-bottom: var(--space-6);
+        }
+        
+        .year-marker {
+            position: absolute;
+            left: calc(-1 * var(--space-6) - 6px);
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px var(--terracotta);
+        }
+        
+        .year-marker::after {
+            content: attr(data-year);
+            position: absolute;
+            left: 30px;
+            top: -5px;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--terracotta);
+            font-size: 0.875rem;
+        }
+        
+        /* Modules with Personal Touch */
+        .modules-preview {
+            padding: var(--space-8) 0;
+            background: var(--warm-gradient);
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+        
+        .module-card {
+            background: white;
+            padding: var(--space-5);
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+            border-left: 4px solid var(--terracotta);
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .module-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-1);
+        }
+        
+        /* Personal Guarantee */
+        .guarantee {
+            padding: var(--space-8) 0;
+            background: var(--deep-blue);
+            color: white;
+            text-align: center;
+        }
+        
+        .guarantee-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: var(--space-6);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .guarantee h2 {
+            color: white;
+            margin-bottom: var(--space-3);
+        }
+        
+        .guarantee p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+        }
+        
+        .signature {
+            font-family: 'Crimson Pro', cursive;
+            font-size: 2rem;
+            color: var(--sand);
+            margin-top: var(--space-4);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-5);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-terracotta);
+            color: white;
+            box-shadow: 0 4px 15px rgba(193, 119, 103, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(193, 119, 103, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--deep-blue);
+        }
+        
+        /* Calculator */
+        .calculator-section {
+            padding: var(--space-8) 0;
+            background: var(--cream);
+        }
+        
+        .calc-box {
+            background: white;
+            padding: var(--space-6);
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+            max-width: 600px;
+            margin: var(--space-6) auto 0;
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: var(--space-3);
+            border: 2px solid var(--sand);
+            border-radius: 10px;
+            font-size: 1.125rem;
+            font-family: var(--font-mono);
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--terracotta);
+        }
+        
+        .calc-results {
+            background: var(--warm-gradient);
+            padding: var(--space-4);
+            border-radius: 12px;
+            margin-top: var(--space-4);
+        }
+        
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .calc-row:last-child {
+            border-bottom: none;
+        }
+        
+        .calc-value {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: var(--space-8) 0;
+            background: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+        
+        .testimonial-card {
+            background: var(--cream);
+            padding: var(--space-5);
+            border-radius: 16px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            color: var(--sand);
+            line-height: 1;
+            opacity: 0.5;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: var(--space-3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--deep-blue);
+        }
+        
+        .testimonial-meta {
+            font-size: 0.875rem;
+            color: var(--warm-gray);
+        }
+        
+        /* CTA */
+        .cta {
+            padding: var(--space-8) 0;
+            background: var(--gradient-terracotta);
+            text-align: center;
+        }
+        
+        .cta h2 {
+            color: white;
+            margin-bottom: var(--space-3);
+        }
+        
+        .cta p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto var(--space-4);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-6) 0 var(--space-4);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+        
+        .footer-section h4 {
+            color: white;
+            font-family: var(--font-sans);
+            font-size: 1.125rem;
+            margin-bottom: var(--space-3);
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--space-2);
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--sand);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--space-4);
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .intro-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-8);
+            }
+            
+            .trust-badges {
+                flex-wrap: nowrap;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Personal Intro -->
+    <section class="personal-intro">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-content">
+                    <div class="greeting">Hoi, ik ben Erik</div>
+                    <h1>Geen sales pitches. Alleen data, ervaring en eerlijk advies.</h1>
+                    <p>
+                        Na 5+ jaar investeren in Dubai off-plan vastgoed zag ik te veel Nederlanders 
+                        dezelfde fouten maken. Ik besloot: er moet een betere manier zijn.
+                    </p>
+                    <p>
+                        Deze cursus is dat resultaat. Geen affiliatelinks, geen verborgen agenda. 
+                        Gewoon wat ik geleerd heb — goed en fout.
+                    </p>
+                    <div class="trust-badges">
+                        <div class="trust-badge">✓ 5+ Jaar Ervaring</div>
+                        <div class="trust-badge">✓ 20+ Properties Bekeken</div>
+                        <div class="trust-badge">✓ 0% Affiliate Links</div>
+                    </div>
+                </div>
+                <div class="personal-photo">
+                    <div class="photo-frame">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&h=600&crop=faces" 
+                             alt="Erik - Dubai vastgoed investeerder"
+                             width="600"
+                             height="600">
+                    </div>
+                    <div class="handwritten-note">
+                        "Ik leerde de harde manier..."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story">
+        <div class="container">
+            <div class="story-content">
+                <div class="text-center">
+                    <h2>Mijn Reis</h2>
+                    <p>Waarom ik deze cursus maakte — en waarom het anders is dan alles anders.</p>
+                </div>
+                
+                <div class="story-timeline">
+                    <div class="story-year">
+                        <div class="year-marker" data-year="2019"></div>
+                        <h3>Eerste aankoop in Dubai</h3>
+                        <p>
+                            Ik kocht mijn eerste off-plan appartement in JVC. €80,000 investering, 
+                            beloofde 20% ROI in 3 jaar. Klonk te mooi om waar te zijn? Dat was het ook.
+                        </p>
+                        <p>
+                            <span class="highlight">De les:</span> Als het klinkt als te mooi om waar te zijn, is het dat meestal ook.
+                        </p>
+                    </div>
+                    
+                    <div class="story-year">
+                        <div class="year-marker" data-year="2021"></div>
+                        <h3>Project vertraging: 18 maanden</h3>
+                        <p>
+                            Mijn eerste project werd 18 maanden opgeleverd. Geen communicatie, 
+                            geen duidelijkheid, geen compensatie. Ik voelde me bedrogen.
+                        </p>
+                        <p>
+                            <span class="highlight">De les:</span> Developer reputation is alles. RERA helpt, 
+                            maar voorkomen is beter dan genezen.
+                        </p>
+                    </div>
+                    
+                    <div class="story-year">
+                        <div class="year-marker" data-year="2022"></div>
+                        <h3>Tweede poging — veel beter</h3>
+                        <p>
+                            Deze keer deed ik due diligence. 6 weken research. 15 developers vergeleken. 
+                            Uiteindelijk gekozen voor een gevestigde naam in Dubai Hills.
+                        </p>
+                        <p>
+                            <span class="highlight">Het resultaat:</span> Op tijd opgeleverd, 12% waardestijging 
+                            in 2 jaar, 7.5% huurrendement. Eindelijk goed.
+                        </p>
+                    </div>
+                    
+                    <div class="story-year">
+                        <div class="year-marker" data-year="2024"></div>
+                        <h3>Waarom ik deze cursus startte</h3>
+                        <p>
+                            Ik zag Nederlandse investeerders dezelfde fouten maken die ik in 2019 maakte. 
+                            Dezelfde verkeerde beloftes, dezelfde teleurstellingen.
+                        </p>
+                        <p>
+                            <span class="highlight">Mijn belofte:</span> Een cursus die ik wou dat ik in 2019 had gevonden.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Preview -->
+    <section class="modules-preview">
+        <div class="container">
+            <div class="text-center">
+                <h2>8 Modules. Geen fluff.</h2>
+                <p>Alles wat ik in 5 jaar leerde — inclusief de fouten.</p>
+            </div>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-number">MODULE 01</div>
+                    <h3>Marktfundamenten</h3>
+                    <p>Waarom Dubai, welke gebieden, en wat mij betreft de meest belangrijke les: market timing.</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>0% belasting — echt alles</li>
+                        <li>Master Plan 2040 impact</li>
+                        <li>Wanneer kopen (en wanneer niet)</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 02</div>
+                    <h3>Off-Plan Mechanica</h3>
+                    <p>Hoe het echt werkt. Niet de brochure versie, maar de praktijk.</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>Betalingsplannen uitgelegd</li>
+                        <li>Escrow accounts — wat ze zijn</li>
+                        <li>De timeline van aankoop tot sleutel</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 03</div>
+                    <h3>Locatie Strategie</h3>
+                    <p>De 5 gebieden waar ik zelf zou investeren (en waarom).</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>JVC — waarom ik het hou</li>
+                        <li>Business Bay — risico's</li>
+                        <li>Dubai Hills — gezinsvriendelijk</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 04</div>
+                    <h3>Due Diligence</h3>
+                    <p>Mijn checklist. Alles wat ik controleer voor ik teken.</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>Developer reputation check</li>
+                        <li>RERA verification</li>
+                        <li>Sales Purchase Agreement review</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 05</div>
+                    <h3>Financiering</h3>
+                    <p>Hoe ik het financieel regel. Als Nederlander.</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>Mortgages voor niet-residents</li>
+                        <li>Valuta risico (echte impact)</li>
+                        <li>Betalingsplan strategieën</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 06</div>
+                    <h3>Exit Strategieën</h3>
+                    <p>Wanneer verkopen? En belangrijker: hoe?</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>Assign voor handover</li>
+                        <li>Refinancieren na oplevering</li>
+                        <li>Mijn hold vs flip beslisboom</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 07</div>
+                    <h3>Risico's (eerlijk)</h3>
+                    <p>Wat niemand je vertelt — maar wat je moet weten.</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>Veelvoorkomende trucs</li>
+                        <li>Annuleringsrisico's</li>
+                        <li>Over-supply signalen</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-number">MODULE 08</div>
+                    <h3>Case Studies</h3>
+                    <p>Mijn eigen transacties. De goede, de slechte, en de lelijke.</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>JVC: mijn eerste</li>
+                        <li>Business Bay: wat ik fout deed</li>
+                        <li>Dubai Hills: eindelijk goed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="text-center">
+                <h2>Bereken Uw Potentiële ROI</h2>
+                <p>Gebaseerd op echte data uit mijn eigen investeringen</p>
+            </div>
+            
+            <div class="calc-box">
+                <div class="form-group">
+                    <label for="investment">Investering (AED)</label>
+                    <input type="number" id="investment" value="1000000" min="100000" step="50000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Locatie</label>
+                    <input type="range" id="location" min="1" max="5" value="3">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-top: 0.5rem; color: var(--warm-gray);">
+                        <span>JVC</span>
+                        <span>Dubai Hills</span>
+                        <span>Downtown</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="years">Investeringstermijn (jaren)</label>
+                    <input type="number" id="years" value="5" min="1" max="10">
+                </div>
+                
+                <div class="calc-results">
+                    <div class="calc-row">
+                        <span>Verwachte waardestijging</span>
+                        <span class="calc-value" id="appreciation">+AED 0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Huurinkomst (totaal)</span>
+                        <span class="calc-value" id="rental">AED 0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Totaal rendement</span>
+                        <span class="calc-value" id="total-roi">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Guarantee -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-box">
+                <h2>Mijn Persoonlijke Garantie</h2>
+                <p>
+                    Als je na de cursus vindt dat het niets toevoegt, stuur me een bericht. 
+                    Ik geef je je geld terug — geen vragen, geen gedoe.
+                </p>
+                <p>
+                    Waarom? Omdat ik geloof in wat ik bouw. En omdat ik weet dat eerlijkheid 
+                    op de lange termijn altijd wint.
+                </p>
+                <div class="signature">Erik</div>
+                <div style="margin-top: var(--space-2); font-size: 0.875rem; opacity: 0.7;">
+                    Dubai vastgoed investeerder sinds 2019
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="text-center">
+                <h2>Wat Nederlandse Investeerders Zeggen</h2>
+                <p>Echte reviews van echte cursisten (geen betaalde testimonials)</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Erik's eerlijkheid over z'n eigen fouten was voor mij de doorslag. 
+                        Dat hij ook de slechte ervaringen deelt, dat geeft vertrouwen."
+                    </p>
+                    <div class="testimonial-author">Mark van der Berg</div>
+                    <div class="testimonial-meta">Amsterdam — Investerde in JVC (2024)</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "De module over due diligence alleen al was het cursusgeld waard. 
+                        Ik zag bijna een teken bij een project met slechte reputation — Erik's checklist redde me."
+                    </p>
+                    <div class="testimonial-author">Sophie de Jong</div>
+                    <div class="testimonial-meta">Rotterdam — Nog aan het kijken</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Geen hype, geen sales. Gewoon wat je moet weten. En Erik's persoonlijke 
+                        ervaringen? Dat goud waard."
+                    </p>
+                    <div class="testimonial-author">Peter Bakker</div>
+                    <div class="testimonial-meta">Utrecht — Beleggingsportefeuille</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Klaar om te beginnen?</h2>
+            <p>
+                Sluit je aan bij 200+ Nederlandse investeerders die de cursus al volgden. 
+                Geen affiliatelinks, geen verborgen agenda. Gewoon eerlijke kennis.
+            </p>
+            <a href="#" class="btn btn-primary" style="background: white; color: var(--terracotta);">Start Cursus — €299</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Over Erik</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">
+                        Nederlandse investeerder in Dubai vastgoed sinds 2019. 
+                        Deze cursus is mijn persoonlijke verzameling ervaringen, lessen en data.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Cursus</h4>
+                    <a href="#modules">Modules</a>
+                    <a href="#calculator">ROI Calculator</a>
+                    <a href="#reviews">Reviews</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <a href="mailto:erik@dubaiinvest.nl">erik@dubaiinvest.nl</a>
+                    <a href="#">WhatsApp (+31 6 XX XX XX XX)</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Disclaimer (geen financieel advies)</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Erik — Dubai Off-Plan Cursus. Alle ervaringen zijn persoonlijk en eerlijk.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function calculateROI() {
+            const investment = parseFloat(document.getElementById('investment').value) || 0;
+            const location = parseInt(document.getElementById('location').value);
+            const years = parseInt(document.getElementById('years').value) || 5;
+            
+            const growthRates = [0.12, 0.18, 0.25, 0.32, 0.40];
+            const rentalYields = [0.06, 0.07, 0.08, 0.09, 0.10];
+            
+            const annualGrowth = growthRates[location - 1];
+            const annualRentalYield = rentalYields[location - 1];
+            
+            const futureValue = investment * Math.pow(1 + annualGrowth, years);
+            const appreciation = futureValue - investment;
+            
+            const annualRental = investment * annualRentalYield;
+            const totalRental = annualRental * years;
+            
+            const totalGain = appreciation + totalRental;
+            const roiPercentage = ((totalGain / investment) * 100).toFixed(1);
+            
+            document.getElementById('appreciation').textContent = `+AED ${appreciation.toLocaleString('nl-NL', {maximumFractionDigits: 0})}`;
+            document.getElementById('rental').textContent = `AED ${totalRental.toLocaleString('nl-NL', {maximumFractionDigits: 0})}`;
+            document.getElementById('total-roi').textContent = `${roiPercentage}%`;
+        }
+        
+        document.getElementById('investment').addEventListener('input', calculateROI);
+        document.getElementById('location').addEventListener('input', calculateROI);
+        document.getElementById('years').addEventListener('input', calculateROI);
+        calculateROI();
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

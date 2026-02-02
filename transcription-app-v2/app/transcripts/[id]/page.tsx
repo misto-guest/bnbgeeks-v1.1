@@ -6,7 +6,8 @@ import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft, Clock, FileText, DollarSign, Edit, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { formatDuration, formatCost, formatDateTime } from '@/lib/utils/general'
+import { formatDuration, formatCost } from '@/lib/utils/transcript'
+import { formatDateTime } from '@/lib/utils/general'
 
 interface Transcript {
   id: string

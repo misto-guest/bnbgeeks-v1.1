@@ -16,8 +16,8 @@ interface UserSettings {
 export default function SettingsPage() {
   const [settings, setSettings] = useState<UserSettings>({
     theme: 'system',
-    defaultProvider: 'openai',
-    defaultModel: 'gpt-4',
+    defaultProvider: 'assemblyai',
+    defaultModel: 'best',
     autoSave: true,
     maxTranscripts: 100,
   })
@@ -31,10 +31,15 @@ export default function SettingsPage() {
   const fetchSettings = async () => {
     try {
       const response = await fetch('/api/settings')
+      if (!response.ok) {
+        console.warn('Settings API unavailable, using defaults')
+        return
+      }
       const data = await response.json()
       setSettings(data)
     } catch (error) {
       console.error('Error fetching settings:', error)
+      // Keep default settings
     } finally {
       setLoading(false)
     }

@@ -30,7 +30,7 @@ export type Setting = z.infer<typeof SettingSchema>
 // User settings structure
 export interface UserSettings {
   theme: 'light' | 'dark' | 'system'
-  defaultProvider: 'openai' | 'anthropic' | 'google'
+  defaultProvider: 'openai' | 'anthropic' | 'google' | 'assemblyai'
   defaultModel: string
   autoSave: boolean
   maxTranscripts: number

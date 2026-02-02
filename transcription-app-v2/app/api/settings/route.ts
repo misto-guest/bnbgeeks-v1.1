@@ -4,8 +4,8 @@ import { UserSettings } from '@/types'
 
 const DEFAULT_SETTINGS: UserSettings = {
   theme: 'system',
-  defaultProvider: 'openai',
-  defaultModel: 'gpt-4',
+  defaultProvider: 'assemblyai',
+  defaultModel: 'best',
   autoSave: true,
   maxTranscripts: 100,
 }

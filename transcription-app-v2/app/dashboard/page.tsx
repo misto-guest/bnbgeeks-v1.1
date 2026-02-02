@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { BarChart3, FileText, Clock, DollarSign, TrendingUp } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { formatDuration, formatCost } from '@/lib/utils/general'
+import { formatDuration, formatCost } from '@/lib/utils/transcript'
 
 interface AnalyticsData {
   totalTranscripts: number
@@ -33,10 +33,14 @@ export default function DashboardPage() {
   const fetchAnalytics = async () => {
     try {
       const response = await fetch('/api/analytics')
+      if (!response.ok) {
+        throw new Error('Failed to fetch analytics')
+      }
       const data = await response.json()
       setAnalytics(data)
     } catch (error) {
       console.error('Error fetching analytics:', error)
+      setAnalytics(null)
     } finally {
       setLoading(false)
     }
@@ -52,8 +56,15 @@ export default function DashboardPage() {
 
   if (!analytics) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground">No analytics data available</div>
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center py-12">
+            <h1 className="text-3xl font-bold text-foreground mb-4">Analytics Dashboard</h1>
+            <div className="text-muted-foreground">
+              No analytics data available. The database may not be configured yet.
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -72,25 +83,25 @@ export default function DashboardPage() {
           <MetricCard
             icon={<FileText className="w-6 h-6" />}
             label="Total Transcripts"
-            value={analytics.totalTranscripts.toLocaleString()}
+            value={(analytics.totalTranscripts || 0).toLocaleString()}
             color="blue"
           />
           <MetricCard
             icon={<FileText className="w-6 h-6" />}
             label="Total Words"
-            value={analytics.totalWords.toLocaleString()}
+            value={(analytics.totalWords || 0).toLocaleString()}
             color="green"
           />
           <MetricCard
             icon={<Clock className="w-6 h-6" />}
             label="Total Duration"
-            value={formatDuration(analytics.totalDuration)}
+            value={formatDuration(analytics.totalDuration || 0)}
             color="purple"
           />
           <MetricCard
             icon={<DollarSign className="w-6 h-6" />}
             label="Total Cost"
-            value={formatCost(analytics.totalCost)}
+            value={formatCost(analytics.totalCost || 0)}
             color="orange"
           />
         </div>
@@ -105,13 +116,13 @@ export default function DashboardPage() {
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Words per transcript</span>
                   <span className="text-2xl font-semibold">
-                    {analytics.averageWordsPerTranscript.toLocaleString()}
+                    {(analytics.averageWordsPerTranscript || 0).toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Duration per transcript</span>
                   <span className="text-2xl font-semibold">
-                    {formatDuration(analytics.averageDurationPerTranscript)}
+                    {formatDuration(analytics.averageDurationPerTranscript || 0)}
                   </span>
                 </div>
               </div>
@@ -124,7 +135,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {Object.entries(analytics.providerBreakdown).map(([provider, stats]) => (
+                {Object.entries(analytics.providerBreakdown || {}).map(([provider, stats]) => (
                   <div key={provider}>
                     <div className="flex justify-between items-center mb-2">
                       <span className="font-medium capitalize">{provider}</span>
@@ -156,13 +167,13 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {analytics.dailyStats.length === 0 ? (
+            {!(analytics.dailyStats || []).length ? (
               <div className="text-center text-muted-foreground py-8">
                 No activity data available yet
               </div>
             ) : (
               <div className="space-y-3">
-                {analytics.dailyStats.slice(-10).reverse().map((day) => (
+                {(analytics.dailyStats || []).slice(-10).reverse().map((day) => (
                   <div
                     key={day.date}
                     className="flex items-center justify-between p-3 rounded-lg border"

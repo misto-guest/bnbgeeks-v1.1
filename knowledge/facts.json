@@ -1,0 +1,494 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created_at": "2026-01-31T21:54:00Z",
+    "last_updated": "2026-02-01T09:10:40.998Z",
+    "total_facts": 21,
+    "active_facts": 21,
+    "archived_facts": 0
+  },
+  "facts": [
+    {
+      "id": "fact-20260131-001",
+      "entity": "transcription-app",
+      "fact": "Completed full-featured transcription app at /Users/northsea/clawd-dmitry/transcription-app with YouTube, Spotify, and file upload support",
+      "source": "2026-01-29-project-summary.md",
+      "created_at": "2026-01-29T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.9,
+      "status": "active",
+      "tags": [
+        "project",
+        "completed",
+        "web-dev"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-002",
+      "entity": "assemblyai",
+      "fact": "AssemblyAI API key configured: da00adef1147469191157b3a562d82b3",
+      "source": "2026-01-29-project-summary.md",
+      "created_at": "2026-01-29T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.8,
+      "status": "active",
+      "tags": [
+        "api-key",
+        "transcription"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-003",
+      "entity": "openrouter",
+      "fact": "OpenRouter API key configured: sk-or-v1...f31 for 400+ AI models",
+      "source": "2026-01-28-ai-setup-summary.md",
+      "created_at": "2026-01-28T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.8,
+      "status": "active",
+      "tags": [
+        "api-key",
+        "ai"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-004",
+      "entity": "deployment-preference",
+      "fact": "Always use Vercel for production deployments (vercel.app URLs)",
+      "source": "PROJECT_PREFERENCES.md",
+      "created_at": "2026-01-27T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.9,
+      "status": "active",
+      "tags": [
+        "preference",
+        "deployment"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-005",
+      "entity": "workflow-external-services",
+      "fact": "User creates external service accounts (Supabase, Resend, etc.) and provides credentials; AI handles all technical setup, coding, and integration",
+      "source": "PROJECT_PREFERENCES.md",
+      "created_at": "2026-01-27T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.8,
+      "status": "active",
+      "tags": [
+        "workflow",
+        "preference"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-006",
+      "entity": "primary-model",
+      "fact": "Primary AI model: zai/glm-4.7 via OpenRouter for general tasks",
+      "source": "2026-01-29-project-summary.md",
+      "created_at": "2026-01-29T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.7,
+      "status": "active",
+      "tags": [
+        "ai",
+        "configuration"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-007",
+      "entity": "spotify-automation",
+      "fact": "Created Spotify recording automation scripts (spotify-recorder.sh, setup-spotify-recorder.sh) using ffmpeg, BlackHole, and apify-cli",
+      "source": "2026-01-29-project-summary.md",
+      "created_at": "2026-01-29T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.6,
+      "status": "active",
+      "tags": [
+        "automation",
+        "spotify"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-008",
+      "entity": "perplexity-pro",
+      "fact": "Perplexity Pro subscription: $20/month for unlimited web search + AI reasoning",
+      "source": "2026-01-28-ai-setup-summary.md",
+      "created_at": "2026-01-28T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [
+        "ai",
+        "pricing"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-009",
+      "entity": "claude-agent-sdk",
+      "fact": "Claude Agent SDK (@anthropic-ai/claude-agent-sdk) installed for building AI apps with Claude",
+      "source": "2026-01-28-ai-setup-summary.md",
+      "created_at": "2026-01-28T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.6,
+      "status": "active",
+      "tags": [
+        "ai",
+        "sdk"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-010",
+      "entity": "transcription-cost",
+      "fact": "AssemblyAI transcription cost: $0.04 for testing phase",
+      "source": "2026-01-29-project-summary.md",
+      "created_at": "2026-01-29T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.4,
+      "status": "active",
+      "tags": [
+        "cost",
+        "transcription"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-011",
+      "entity": "spotify-drm-limitation",
+      "fact": "Spotify DRM protection prevents direct download; solution is manual recording + file upload or automated recording scripts",
+      "source": "2026-01-29-project-summary.md",
+      "created_at": "2026-01-29T00:00:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.7,
+      "status": "active",
+      "tags": [
+        "technical",
+        "spotify",
+        "limitation"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-20260131-012",
+      "entity": "workspace-location",
+      "fact": "Workspace directory: /Users/northsea/clawd-dmitry",
+      "source": "runtime",
+      "created_at": "2026-01-31T21:54:00Z",
+      "last_accessed": "2026-01-31T21:54:00Z",
+      "access_count": 1,
+      "importance": 0.9,
+      "status": "active",
+      "tags": [
+        "environment"
+      ],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769929626609-nw43nr53o",
+      "entity": "ssh-reminder",
+      "fact": "SSH installation reminder scheduled for Monday Feb 3, 2026 at 10:00 AM Europe/Amsterdam time",
+      "source": "manual",
+      "created_at": "2026-02-01T07:07:06.609Z",
+      "last_accessed": "2026-02-01T07:07:06.609Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769929753242-b2jnkcwgh",
+      "entity": "glm-dashboard",
+      "fact": "Created GLM 4.7 usage dashboard at /Users/northsea/clawd-dmitry/glm-dashboard with budget tracking, cost calculation, and usage statistics",
+      "source": "manual",
+      "created_at": "2026-02-01T07:09:13.242Z",
+      "last_accessed": "2026-02-01T07:09:13.243Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769930144149-y775sw24p",
+      "entity": "glm-dashboard-deployment",
+      "fact": "GLM 4.7 usage dashboard deployed to Vercel: https://glm-dashboard-umber.vercel.app with budget tracking, cost calculation, and manual entry features",
+      "source": "manual",
+      "created_at": "2026-02-01T07:15:44.149Z",
+      "last_accessed": "2026-02-01T07:15:44.150Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769930530199-t7f2n1vxp",
+      "entity": "youtube-transcription-automation",
+      "fact": "Created automated YouTube transcription system using youtube-transcript-api Python library with scripts at /Users/northsea/clawd-dmitry/transcription-app/scripts/ including youtube_transcript.py and auto_transcribe.sh wrapper",
+      "source": "manual",
+      "created_at": "2026-02-01T07:22:10.199Z",
+      "last_accessed": "2026-02-01T07:22:10.199Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769931604977-awe0v8ff6",
+      "entity": "transcription-app-enhanced",
+      "fact": "Enhanced transcription app with automated YouTube transcript extraction using youtube-transcript-api, AssemblyAI fallback, AI-powered 10 key takeaways generation via OpenRouter, statistics dashboard, and improved UI with gradients and highlighted sections",
+      "source": "manual",
+      "created_at": "2026-02-01T07:40:04.977Z",
+      "last_accessed": "2026-02-01T07:40:04.978Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769932112955-0i2zdc99m",
+      "entity": "lovable-implementation-guide",
+      "fact": "Created extended key takeaways for Video 1 (Open Claw) with 16+ word implementations ready for copy-paste into Lovable website generator, covering task execution, multi-provider support, modular skills, security, hybrid architecture, and automation",
+      "source": "manual",
+      "created_at": "2026-02-01T07:48:32.955Z",
+      "last_accessed": "2026-02-01T07:48:32.956Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769935401224-idtsekx7o",
+      "entity": "transcription-app-production",
+      "fact": "Transcription app deployed to production at https://transcription-app-woad.vercel.app with AI-powered key takeaways, YouTube transcript API integration, AssemblyAI fallback, Lovable-ready snippets, statistics dashboard, and gradient UI",
+      "source": "manual",
+      "created_at": "2026-02-01T08:43:21.224Z",
+      "last_accessed": "2026-02-01T08:43:21.225Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769935401280-u3xcyfj8q",
+      "entity": "production-deployment-urls",
+      "fact": "Production URLs saved: Transcription app (https://transcription-app-woad.vercel.app), GLM dashboard (https://glm-dashboard-umber.vercel.app), all deployments documented in memory/PRODUCTION-URLS.md",
+      "source": "manual",
+      "created_at": "2026-02-01T08:43:21.280Z",
+      "last_accessed": "2026-02-01T08:43:21.281Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    },
+    {
+      "id": "fact-1769937040997-5vz1ihirq",
+      "entity": "status-page-deployed",
+      "fact": "Status page deployed at https://transcription-app-woad.vercel.app/status showing all production apps (Transcription App, GLM Dashboard) with live links, system status, and confirmation that auto-update notes system is operational with three-layer memory and heartbeat process",
+      "source": "manual",
+      "created_at": "2026-02-01T09:10:40.997Z",
+      "last_accessed": "2026-02-01T09:10:40.998Z",
+      "access_count": 0,
+      "importance": 0.5,
+      "status": "active",
+      "tags": [],
+      "superseded_by": null
+    }
+  ],
+  "entities": {
+    "people": {
+      "rozhiu": {
+        "name": "B",
+        "handle": "@rozhiu",
+        "platform": "Telegram",
+        "notes": "User of Clawdbot, interested in AI and automation"
+      }
+    },
+    "projects": {
+      "transcription-app": {
+        "status": "completed",
+        "location": "/Users/northsea/clawd-dmitry/transcription-app",
+        "completed_at": "2026-01-29"
+      }
+    },
+    "concepts": {
+      "para": {
+        "name": "PARA Method",
+        "description": "Organizational framework: Projects, Areas, Resources, Archives"
+      },
+      "atomic-facts": {
+        "name": "Atomic Facts",
+        "description": "Individual, queryable facts stored in JSON with metadata"
+      }
+    }
+  },
+  "indexes": {
+    "by_entity": {
+      "transcription-app": [
+        "fact-20260131-001",
+        "fact-20260131-011"
+      ],
+      "assemblyai": [
+        "fact-20260131-002"
+      ],
+      "openrouter": [
+        "fact-20260131-003"
+      ],
+      "deployment-preference": [
+        "fact-20260131-004"
+      ],
+      "workflow-external-services": [
+        "fact-20260131-005"
+      ],
+      "primary-model": [
+        "fact-20260131-006"
+      ],
+      "spotify-automation": [
+        "fact-20260131-007"
+      ],
+      "perplexity-pro": [
+        "fact-20260131-008"
+      ],
+      "claude-agent-sdk": [
+        "fact-20260131-009"
+      ],
+      "transcription-cost": [
+        "fact-20260131-010"
+      ],
+      "spotify-drm-limitation": [
+        "fact-20260131-011"
+      ],
+      "workspace-location": [
+        "fact-20260131-012"
+      ],
+      "ssh-reminder": [
+        "fact-1769929626609-nw43nr53o"
+      ],
+      "glm-dashboard": [
+        "fact-1769929753242-b2jnkcwgh"
+      ],
+      "glm-dashboard-deployment": [
+        "fact-1769930144149-y775sw24p"
+      ],
+      "youtube-transcription-automation": [
+        "fact-1769930530199-t7f2n1vxp"
+      ],
+      "transcription-app-enhanced": [
+        "fact-1769931604977-awe0v8ff6"
+      ],
+      "lovable-implementation-guide": [
+        "fact-1769932112955-0i2zdc99m"
+      ],
+      "transcription-app-production": [
+        "fact-1769935401224-idtsekx7o"
+      ],
+      "production-deployment-urls": [
+        "fact-1769935401280-u3xcyfj8q"
+      ],
+      "status-page-deployed": [
+        "fact-1769937040997-5vz1ihirq"
+      ]
+    },
+    "by_tag": {
+      "project": [
+        "fact-20260131-001"
+      ],
+      "completed": [
+        "fact-20260131-001"
+      ],
+      "web-dev": [
+        "fact-20260131-001"
+      ],
+      "api-key": [
+        "fact-20260131-002",
+        "fact-20260131-003"
+      ],
+      "transcription": [
+        "fact-20260131-002",
+        "fact-20260131-010"
+      ],
+      "ai": [
+        "fact-20260131-003",
+        "fact-20260131-006",
+        "fact-20260131-008",
+        "fact-20260131-009"
+      ],
+      "preference": [
+        "fact-20260131-004",
+        "fact-20260131-005"
+      ],
+      "deployment": [
+        "fact-20260131-004"
+      ],
+      "workflow": [
+        "fact-20260131-005"
+      ],
+      "configuration": [
+        "fact-20260131-006"
+      ],
+      "automation": [
+        "fact-20260131-007"
+      ],
+      "spotify": [
+        "fact-20260131-007",
+        "fact-20260131-011"
+      ],
+      "pricing": [
+        "fact-20260131-008"
+      ],
+      "sdk": [
+        "fact-20260131-009"
+      ],
+      "cost": [
+        "fact-20260131-010"
+      ],
+      "technical": [
+        "fact-20260131-011"
+      ],
+      "limitation": [
+        "fact-20260131-011"
+      ],
+      "environment": [
+        "fact-20260131-012"
+      ]
+    },
+    "by_importance": [
+      "fact-20260131-001",
+      "fact-20260131-004",
+      "fact-20260131-012",
+      "fact-20260131-002",
+      "fact-20260131-003",
+      "fact-20260131-005",
+      "fact-20260131-006",
+      "fact-20260131-011",
+      "fact-20260131-007",
+      "fact-20260131-009",
+      "fact-20260131-008",
+      "fact-20260131-010"
+    ]
+  }
+}

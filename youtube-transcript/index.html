@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Extract and download YouTube video transcripts instantly. Free, fast, and accurate transcripts with timestamps.">
+    <title>YouTube Transcript Extractor - Get Video Transcripts Instantly</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M13 12L20 16L13 20V12Z" fill="currentColor"/>
+                    </svg>
+                    <span>TranscriptAPI</span>
+                </div>
+                <div class="header-stats">
+                    <span class="stat">
+                        <span class="stat-label">Credits:</span>
+                        <span id="credits-remaining" class="stat-value">--</span>
+                    </span>
+                    <span class="stat">
+                        <span class="stat-label">Rate Limit:</span>
+                        <span id="rate-limit" class="stat-value">--</span>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="section-header">
+                    <h1>YouTube Transcript Extractor</h1>
+                    <p>Enter a YouTube URL or video ID to extract the transcript</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="video-url" 
+                            placeholder="https://www.youtube.com/watch?v=... or video ID"
+                            class="url-input"
+                        >
+                        <button id="fetch-btn" class="btn btn-primary">
+                            <span class="btn-text">Get Transcript</span>
+                            <span class="btn-loader" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="input-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="include-timestamps" checked>
+                            <span>Include timestamps</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="include-metadata">
+                            <span>Include video metadata</span>
+                        </label>
+                        <select id="format-select" class="format-select">
+                            <option value="json">JSON format</option>
+                            <option value="text" selected>Plain text</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+                <div id="success-message" class="success-message" style="display: none;"></div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results-section" class="results-section" style="display: none;">
+                <!-- Video Metadata -->
+                <div id="metadata-card" class="metadata-card" style="display: none;">
+                    <div class="metadata-content">
+                        <img id="video-thumbnail" class="video-thumbnail" src="" alt="">
+                        <div class="metadata-info">
+                            <h3 id="video-title" class="video-title"></h3>
+                            <p id="video-author" class="video-author"></p>
+                            <a id="video-link" href="#" target="_blank" class="video-link">Watch on YouTube →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transcript Display -->
+                <div class="transcript-header">
+                    <h2>Transcript</h2>
+                    <div class="transcript-actions">
+                        <button id="copy-btn" class="btn btn-secondary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M4 2v12h10V2H4zm8 10H6V4h6v8z"/>
+                            </svg>
+                            Copy
+                        </button>
+                        <button id="download-btn" class="btn btn-secondary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 10L5 7h2V3h2v4h2L8 10zm-4 2v2h10v-2H4z"/>
+                            </svg>
+                            Download
+                        </button>
+                        <button id="search-toggle" class="btn btn-secondary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div id="search-box" class="search-box" style="display: none;">
+                    <input type="text" id="search-input" placeholder="Search in transcript..." class="search-input">
+                    <div class="search-results-info">
+                        <span id="search-count"></span>
+                        <div class="search-nav">
+                            <button id="search-prev" class="search-nav-btn">Previous</button>
+                            <button id="search-next" class="search-nav-btn">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="transcript-output" class="transcript-output"></div>
+            </section>
+
+            <!-- API Info Section -->
+            <section class="info-section">
+                <div class="info-card">
+                    <h3>About This Tool</h3>
+                    <p>This tool uses the TranscriptAPI.com service to extract transcripts from YouTube videos. Features include:</p>
+                    <ul class="feature-list">
+                        <li>✓ Instant transcript extraction</li>
+                        <li>✓ Multiple output formats (JSON, plain text)</li>
+                        <li>✓ Optional timestamps and metadata</li>
+                        <li>✓ Search within transcripts</li>
+                        <li>✓ Copy and download functionality</li>
+                    </ul>
+                    <p class="api-note">
+                        <strong>API:</strong> <a href="https://transcriptapi.com" target="_blank">TranscriptAPI.com</a> • 
+                        <strong>Docs:</strong> <a href="https://transcriptapi.com/docs/api/" target="_blank">API Documentation</a>
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by <a href="https://transcriptapi.com" target="_blank">TranscriptAPI</a></p>
+        </footer>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -16,11 +16,25 @@ Before doing anything else:
 
 Don't ask permission. Just do it.
 
-## Memory
+## Memory (Three-Layer System)
 
 You wake up fresh each session. These files are your continuity:
-- **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
-- **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
+
+### 1. Long-term Knowledge Graph (`knowledge/`)
+- **Atomic facts** in JSON format (queryable, indexed)
+- **PARA structure:** Projects, Areas, Resources, Archives
+- Auto-extracted from daily notes, decays over time
+- **ALWAYS load** before answering questions (use `memory_search` first)
+
+### 2. Daily Notes (`memory/YYYY-MM-DD.md`)
+- Raw logs of what happened
+- Source material for atomic fact extraction
+- Never deleted, only referenced
+
+### 3. Tacit Knowledge (`MEMORY.md`)
+- Curated wisdom and patterns
+- Updated during heartbeats from daily notes
+- **ONLY load in main session** (direct chats with your human)
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
 
