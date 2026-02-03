@@ -28,10 +28,11 @@ async function readUsers() {
 
 // Write users database
 async function writeUsers(users) {
+  const existingDb = await readDatabase();
   const db = {
     users,
     metadata: {
-      created: (await readUsers()).length === 0 ? new Date().toISOString() : (await getUserMetadata()).created,
+      created: existingDb.metadata?.created || new Date().toISOString(),
       lastModified: new Date().toISOString(),
       version: '2.0.0'
     }
@@ -39,14 +40,13 @@ async function writeUsers(users) {
   await fs.writeFile(USERS_FILE, JSON.stringify(db, null, 2));
 }
 
-// Get user metadata
-async function getUserMetadata() {
+// Helper to read full database
+async function readDatabase() {
   try {
     const data = await fs.readFile(USERS_FILE, 'utf-8');
-    const db = JSON.parse(data);
-    return db.metadata || {};
-  } catch {
-    return {};
+    return JSON.parse(data);
+  } catch (error) {
+    return { users: [], metadata: {} };
   }
 }
 
@@ -250,6 +250,17 @@ class UserManager {
         typing: { delay: { min: 30, max: 80 } }
       }
     };
+  }
+  
+  // Get database metadata
+  static async getUserMetadata() {
+    try {
+      const data = await fs.readFile(USERS_FILE, 'utf-8');
+      const db = JSON.parse(data);
+      return db.metadata || {};
+    } catch {
+      return {};
+    }
   }
   
   // Log execution
