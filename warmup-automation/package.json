@@ -1,0 +1,17 @@
+{
+  "name": "warmup-automation",
+  "version": "1.0.0",
+  "description": "Chrome warm-up automation with Google Trends and News",
+  "main": "warmup.js",
+  "type": "module",
+  "scripts": {
+    "start": "node warmup.js",
+    "test": "node warmup.js --dry-run"
+  },
+  "dependencies": {
+    "puppeteer": "^23.0.0"
+  },
+  "keywords": ["automation", "puppeteer", "chrome"],
+  "author": "",
+  "license": "MIT"
+}

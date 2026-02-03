@@ -1,0 +1,30 @@
+{
+  "timeOnPage": {
+    "trends": {
+      "min": 5,
+      "max": 10,
+      "description": "Time to spend on Google Trends page (seconds)"
+    },
+    "newsSearch": {
+      "min": 3,
+      "max": 7,
+      "description": "Time to spend on news search results (seconds)"
+    },
+    "article": {
+      "min": 10,
+      "max": 30,
+      "description": "Time to spend reading the article (seconds)"
+    }
+  },
+  "browser": {
+    "headless": false,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "automation": {
+    "numTrendsToProcess": 1,
+    "description": "Number of top trends to process (1-10)"
+  }
+}
