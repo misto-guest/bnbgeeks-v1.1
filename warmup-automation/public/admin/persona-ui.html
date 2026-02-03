@@ -1,0 +1,531 @@
+<!-- Persona Creation Modal Content -->
+<div id="personaModal" class="modal">
+  <div class="modal-content large">
+    <div class="modal-header">
+      <h2 id="personaModalTitle">Create Persona</h2>
+      <button class="close-btn" onclick="closeModal('personaModal')">&times;</button>
+    </div>
+    <form id="personaForm" onsubmit="savePersona(event)">
+      <input type="hidden" id="personaUserId">
+
+      <!-- Profile Dimensions -->
+      <div class="form-section">
+        <h3>🎭 Profile Dimensions</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Gender *</label>
+            <select id="personaGender" required onchange="updatePersonaPreview()">
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <small>Statistical behavioral patterns, not stereotypes</small>
+          </div>
+
+          <div class="form-group">
+            <label>Age Group *</label>
+            <select id="personaAgeGroup" required onchange="updatePersonaPreview()">
+              <option value="">Select age group</option>
+              <option value="18-24">18-24 (Digital Native)</option>
+              <option value="25-34">25-34 (Young Professional)</option>
+              <option value="35-44">35-44 (Established Professional)</option>
+              <option value="45-60">45-60 (Mature User)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>GEO Location *</label>
+            <select id="personaGeo" required onchange="updatePersonaPreview()">
+              <option value="">Select location</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="DE">Germany (Deutschland)</option>
+              <option value="NL">Netherlands (Nederland)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Profession</label>
+            <input type="text" id="personaProfession" placeholder="Optional (e.g., Developer, Teacher)">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Activity Level *</label>
+            <select id="personaActivity" required onchange="updatePersonaPreview()">
+              <option value="">Select activity level</option>
+              <option value="low">Low (2-3 sessions/day)</option>
+              <option value="medium">Medium (4-6 sessions/day) ⭐</option>
+              <option value="high">High (8-12 sessions/day)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tech Savviness *</label>
+            <select id="personaTechSavvy" required onchange="updatePersonaPreview()">
+              <option value="">Select tech level</option>
+              <option value="low">Low (cautious, makes mistakes)</option>
+              <option value="medium">Medium (confident) ⭐</option>
+              <option value="high">High (efficient, uses shortcuts)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Behavioral Preview -->
+      <div class="form-section">
+        <h3>📊 Behavioral Preview</h3>
+        <div id="personaPreview" class="persona-preview">
+          <p class="text-muted">Fill in the dimensions above to see behavioral predictions</p>
+        </div>
+      </div>
+
+      <!-- Trust Score Metrics -->
+      <div class="form-section">
+        <h3>🎯 Trust Score Factors</h3>
+        <div class="trust-score-breakdown">
+          <div class="trust-factor">
+            <span class="factor-label">Account Age</span>
+            <div class="factor-bar">
+              <div class="factor-fill" style="width: 20%"></div>
+            </div>
+            <span class="factor-weight">20%</span>
+          </div>
+          <div class="trust-factor">
+            <span class="factor-label">Warm-up Consistency</span>
+            <div class="factor-bar">
+              <div class="factor-fill" style="width: 25%"></div>
+            </div>
+            <span class="factor-weight">25%</span>
+          </div>
+          <div class="trust-factor">
+            <span class="factor-label">Session Diversity</span>
+            <div class="factor-bar">
+              <div class="factor-fill" style="width: 15%"></div>
+            </div>
+            <span class="factor-weight">15%</span>
+          </div>
+          <div class="trust-factor">
+            <span class="factor-label">Reply Ratio</span>
+            <div class="factor-bar">
+              <div class="factor-fill" style="width: 15%"></div>
+            </div>
+            <span class="factor-weight">15%</span>
+          </div>
+          <div class="trust-factor">
+            <span class="factor-label">Product Usage</span>
+            <div class="factor-bar">
+              <div class="factor-fill" style="width: 15%"></div>
+            </div>
+            <span class="factor-weight">15%</span>
+          </div>
+          <div class="trust-factor negative">
+            <span class="factor-label">Spam Touches</span>
+            <div class="factor-bar">
+              <div class="factor-fill negative" style="width: 10%"></div>
+            </div>
+            <span class="factor-weight">-10%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Settings -->
+      <div class="form-section">
+        <h3>⚙️ Advanced Settings</h3>
+        <details>
+          <summary>Click to expand</summary>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="personaHeadless" checked>
+              Run in Headless Mode
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>Timezone Override</label>
+            <input type="text" id="personaTimezone" placeholder="Auto-detect from GEO">
+            <small>Default: Auto-detect based on GEO location</small>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="personaCrossProduct">
+              Enable Cross-Google Product Usage
+            </label>
+            <small>Drive, Docs, Calendar, Maps (boosts trust score)</small>
+          </div>
+        </details>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Persona</button>
+        <button type="button" class="btn btn-secondary" onclick="closeModal('personaModal')">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Persona Inspector Modal -->
+<div id="personaInspectorModal" class="modal">
+  <div class="modal-content large">
+    <div class="modal-header">
+      <h2>🔍 Persona Inspector</h2>
+      <button class="close-btn" onclick="closeModal('personaInspectorModal')">&times;</button>
+    </div>
+    <div id="personaInspectorContent"></div>
+  </div>
+</div>
+
+<!-- Kill Switch Panel -->
+<div class="kill-switch-panel">
+  <h3>🚨 Emergency Controls</h3>
+  <div class="kill-switches">
+    <button class="btn btn-danger" onclick="pauseByGEO('US')">
+      Pause US Users
+    </button>
+    <button class="btn btn-danger" onclick="pauseByGEO('UK')">
+      Pause UK Users
+    </button>
+    <button class="btn btn-danger" onclick="pauseByGEO('DE')">
+      Pause DE Users
+    </button>
+    <button class="btn btn-danger" onclick="pauseByGEO('NL')">
+      Pause NL Users
+    </button>
+    <button class="btn btn-warning" onclick="pauseByProfileType('high_activity')">
+      Pause High Activity
+    </button>
+    <button class="btn btn-warning" onclick="pauseByProfileType('new_accounts')">
+      Pause New Accounts
+    </button>
+    <button class="btn btn-danger" onclick="emergencyCooldown()">
+      🚨 EMERGENCY COOLDOWN
+    </button>
+  </div>
+</div>
+
+<script>
+// Persona preview update
+function updatePersonaPreview() {
+  const gender = document.getElementById('personaGender').value;
+  const ageGroup = document.getElementById('personaAgeGroup').value;
+  const geo = document.getElementById('personaGeo').value;
+  const activity = document.getElementById('personaActivity').value;
+  const techSavvy = document.getElementById('personaTechSavvy').value;
+
+  if (!gender || !ageGroup || !geo || !activity || !techSavvy) {
+    document.getElementById('personaPreview').innerHTML = '<p class="text-muted">Fill in all dimensions to see behavioral predictions</p>';
+    return;
+  }
+
+  // Fetch behavioral predictions
+  fetch('/api/personas/preview', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ gender, age_group: ageGroup, geo, activity_level: activity, tech_savvy: techSavvy })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('personaPreview').innerHTML = `
+      <div class="preview-grid">
+        <div class="preview-card">
+          <h4>🔍 Search Engine Distribution</h4>
+          ${Object.entries(data.search_engines).map(([engine, weight]) => `
+            <div class="stat-bar">
+              <span>${engine}</span>
+              <div class="bar-bg"><div class="bar-fill" style="width: ${weight * 100}%"></div></div>
+              <span>${Math.round(weight * 100)}%</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="preview-card">
+          <h4>🌐 Preferred Sites</h4>
+          <ul>${data.sites.slice(0, 5).map(site => `<li>${site}</li>`).join('')}</ul>
+        </div>
+
+        <div class="preview-card">
+          <h4>⏱️ Session Patterns</h4>
+          <p><strong>Duration:</strong> ${Math.round(data.session_duration / 1000)}s</p>
+          <p><strong>Sessions/day:</strong> ${data.sessions_per_day.join('-')}</p>
+          <p><strong>Pages/session:</strong> ${data.pages_per_session.join('-')}</p>
+          <p><strong>Navigation:</strong> ${data.navigation_speed}</p>
+        </div>
+
+        <div class="preview-card">
+          <h4>🎯 Noise Injection</h4>
+          <p><strong>Typos:</strong> ${(data.noise.typos_rate * 100).toFixed(1)}%</p>
+          <p><strong>Misclicks:</strong> ${(data.noise.misclicks_rate * 100).toFixed(1)}%</p>
+          <p><strong>Hesitation:</strong> ${(data.noise.hesitation_rate * 100).toFixed(1)}%</p>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// Save persona
+async function savePersona(event) {
+  event.preventDefault();
+
+  const personaData = {
+    user_id: document.getElementById('personaUserId').value,
+    gender: document.getElementById('personaGender').value,
+    age_group: document.getElementById('personaAgeGroup').value,
+    geo: document.getElementById('personaGeo').value,
+    profession: document.getElementById('personaProfession').value,
+    activity_level: document.getElementById('personaActivity').value,
+    tech_savvy: document.getElementById('personaTechSavvy').value,
+    headless: document.getElementById('personaHeadless').checked,
+    timezone: document.getElementById('personaTimezone').value,
+    cross_product_enabled: document.getElementById('personaCrossProduct').checked
+  };
+
+  try {
+    const response = await fetch('/api/personas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(personaData)
+    });
+
+    if (!response.ok) throw new Error('Failed to save persona');
+
+    closeModal('personaModal');
+    loadUsers();
+    alert('Persona created successfully!');
+  } catch (error) {
+    alert('Error saving persona: ' + error.message);
+  }
+}
+
+// Persona inspector
+async function showPersonaInspector(userId) {
+  const response = await fetch(`/api/personas/user/${userId}`);
+  const data = await response.json();
+
+  const persona = data.persona;
+
+  document.getElementById('personaInspectorContent').innerHTML = `
+    <div class="inspector-grid">
+      <div class="inspector-card">
+        <h3>🎭 Profile</h3>
+        <p><strong>Gender:</strong> ${persona.gender}</p>
+        <p><strong>Age:</strong> ${persona.age_group}</p>
+        <p><strong>GEO:</strong> ${persona.geo}</p>
+        <p><strong>Activity:</strong> ${persona.activity_level}</p>
+        <p><strong>Tech:</strong> ${persona.tech_savvy}</p>
+      </div>
+
+      <div class="inspector-card">
+        <h3>📊 Scores</h3>
+        <div class="score-display">
+          <div class="score-circle">
+            <div class="score-value">${persona.trust_score || 0}</div>
+            <div class="score-label">Trust Score</div>
+          </div>
+          <div class="score-circle">
+            <div class="score-value">${persona.maturity_score || 0}</div>
+            <div class="score-label">Maturity</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inspector-card">
+        <h3>📈 Behavioral Weights</h3>
+        <pre>${JSON.stringify(persona.behavioral_weights, null, 2)}</pre>
+      </div>
+
+      <div class="inspector-card">
+        <h3>🕐 Active Hours</h3>
+        <p><strong>Timezone:</strong> ${persona.timezone || 'Auto'}</p>
+        <p><strong>Active:</strong> ${persona.active_hours?.start}:00 - ${persona.active_hours?.end}:00</p>
+      </div>
+    </div>
+  `;
+
+  showModal('personaInspectorModal');
+}
+
+// Kill switches
+async function pauseByGEO(geo) {
+  if (!confirm(`Pause all ${geo} users?`)) return;
+
+  await fetch('/api/admin/pause', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'geo', value: geo })
+  });
+
+  alert(`All ${geo} users paused`);
+}
+
+async function pauseByProfileType(type) {
+  if (!confirm(`Pause ${type} users?`)) return;
+
+  await fetch('/api/admin/pause', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'profile', value: type })
+  });
+
+  alert(`${type} users paused`);
+}
+
+async function emergencyCooldown() {
+  if (!confirm('🚨 EMERGENCY COOLDOWN - Pause all users?')) return;
+
+  await fetch('/api/admin/emergency-stop', { method: 'POST' });
+  alert('🚨 All users stopped immediately');
+}
+</script>
+
+<style>
+.persona-preview {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.preview-card, .inspector-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.preview-card h4, .inspector-card h3 {
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.bar-bg {
+  flex: 1;
+  height: 20px;
+  background: var(--light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--primary);
+  transition: width 0.3s;
+}
+
+.trust-score-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trust-factor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.factor-label {
+  width: 150px;
+  font-size: 0.9rem;
+}
+
+.factor-bar {
+  flex: 1;
+  height: 24px;
+  background: var(--light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.factor-fill {
+  height: 100%;
+  background: var(--success);
+  transition: width 0.3s;
+}
+
+.factor-fill.negative {
+  background: var(--danger);
+}
+
+.factor-weight {
+  width: 50px;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.kill-switch-panel {
+  background: var(--danger);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.kill-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.kill-switches .btn {
+  background: white;
+  color: var(--danger);
+}
+
+.kill-switches .btn:hover {
+  background: var(--light);
+}
+
+.inspector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.score-display {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.score-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.score-label {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+</style>
