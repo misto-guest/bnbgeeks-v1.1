@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdsPower Profile Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status.connected {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status.disconnected {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .value {
+            color: #2d3748;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge.active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .badge.inactive {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .cookie-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f7fafc;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .cookie-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .cookie-domain {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .cookie-name {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        .extensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .extension-item {
+            background: #f7fafc;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 8px;
+            padding: 20px;
+            color: #742a2a;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .timestamp {
+            color: #a0aec0;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 AdsPower Profile Dashboard</h1>
+            <div>
+                <span id="status" class="status disconnected">Disconnected</span>
+                <span class="timestamp" id="lastUpdate">Last update: Never</span>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="loading">
+                <p>📡 Waiting for AdsPower connection...</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Make sure AdsPower is running and API is enabled</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let profileData = null;
+
+        async function loadProfileData() {
+            try {
+                const response = await fetch('./adspower-profile-data.json');
+                if (!response.ok) {
+                    throw new Error('No data file found');
+                }
+                profileData = await response.json();
+                renderDashboard();
+            } catch (error) {
+                document.getElementById('content').innerHTML = `
+                    <div class="error">
+                        <h3>⚠️ No Profile Data Available</h3>
+                        <p style="margin-top: 10px;">Run the test script first: <code>node test-adspower-profile-1.js</code></p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Make sure AdsPower is running with API enabled</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderDashboard() {
+            if (!profileData || !profileData.success) {
+                document.getElementById('content').innerHTML = `
+                    <div class="error">
+                        <h3>❌ Profile Data Error</h3>
+                        <p>${profileData?.error || 'Unknown error'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Update status
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = 'Connected';
+            statusEl.className = 'status connected';
+            document.getElementById('lastUpdate').textContent = `Last update: ${new Date(profileData.timestamp).toLocaleString()}`;
+
+            const info = profileData.basic_info || {};
+            const isActive = profileData.is_active;
+            const cookies = profileData.cookies?.data || [];
+            const extensions = profileData.extensions?.data || [];
+
+            document.getElementById('content').innerHTML = `
+                <div class="grid">
+                    <!-- Basic Info Card -->
+                    <div class="card">
+                        <h2>📋 Profile Information</h2>
+                        <div class="info-row">
+                            <span class="label">User ID</span>
+                            <span class="value">${info.user_id || profileData.profile_id || 'N/A'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Name</span>
+                            <span class="value">${info.name || 'Unnamed'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Status</span>
+                            <span class="value">
+                                <span class="badge ${isActive ? 'active' : 'inactive'}">
+                                    ${isActive ? '● Active' : '○ Inactive'}
+                                </span>
+                            </span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Browser</span>
+                            <span class="value">${info.browser_type || 'Unknown'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Operating System</span>
+                            <span class="value">${info.os || 'Unknown'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Group</span>
+                            <span class="value">${info.group_name || 'None'}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Created</span>
+                            <span class="value">${info.create_time || 'Unknown'}</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Card -->
+                    <div class="card">
+                        <h2>📊 Statistics</h2>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-number">${cookies.length}</div>
+                                <div class="stat-label">Cookies</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">${[...new Set(cookies.map(c => c.domain))].length}</div>
+                                <div class="stat-label">Domains</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">${extensions.length}</div>
+                                <div class="stat-label">Extensions</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">${isActive ? '1' : '0'}</div>
+                                <div class="stat-label">Active Sessions</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cookies Card -->
+                    <div class="card" style="grid-column: span 2;">
+                        <h2>🍪 Cookies (${cookies.length})</h2>
+                        ${cookies.length > 0 ? `
+                            <div class="cookie-list">
+                                ${cookies.slice(0, 50).map(cookie => `
+                                    <div class="cookie-item">
+                                        <div class="cookie-domain">${cookie.domain || 'N/A'}</div>
+                                        <div class="cookie-name">${cookie.name || 'N/A'}</div>
+                                    </div>
+                                `).join('')}
+                                ${cookies.length > 50 ? `<p style="text-align: center; color: #718096; padding: 10px;">... and ${cookies.length - 50} more</p>` : ''}
+                            </div>
+                        ` : '<p style="color: #718096;">No cookies found</p>'}
+                    </div>
+
+                    <!-- Extensions Card -->
+                    <div class="card">
+                        <h2>🧩 Extensions (${extensions.length})</h2>
+                        ${extensions.length > 0 ? `
+                            <div class="extensions-grid">
+                                ${extensions.map(ext => `
+                                    <div class="extension-item">
+                                        ${ext.name || ext.id || 'Unknown'}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : '<p style="color: #718096;">No extensions installed</p>'}
+                    </div>
+
+                    <!-- Raw Data Card -->
+                    <div class="card">
+                        <h2>💾 Raw Data</h2>
+                        <p style="color: #718096; font-size: 0.9rem;">Full profile data available in <code>adspower-profile-data.json</code></p>
+                        <button class="refresh-btn" onclick="loadProfileData()">🔄 Refresh Data</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load data on page load
+        loadProfileData();
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadProfileData, 30000);
+    </script>
+</body>
+</html>

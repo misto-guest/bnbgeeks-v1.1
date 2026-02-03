@@ -43,6 +43,45 @@ class PersonaWarmupEngine {
     console.log(`   GEO: ${this.persona.geo}`);
     console.log(`   Activity: ${this.persona.activity_level}`);
     console.log(`   Tech Savviness: ${this.persona.tech_savvy}`);
+
+    // Start screenshot timer
+    this.startScreenshotTimer();
+  }
+
+  // Start periodic screenshots
+  startScreenshotTimer() {
+    const screenshotInterval = 30000; // 30 seconds
+    const screenshotDir = '/Users/northsea/clawd-dmitry/warmup-automation/screenshots/dutch-male-test';
+    let screenshotCount = 0;
+
+    this.screenshotTimer = setInterval(async () => {
+      if (this.page && !this.page.isClosed()) {
+        try {
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+          const screenshotPath = `${screenshotDir}/screen_${timestamp}.png`;
+          
+          await this.page.screenshot({
+            path: screenshotPath,
+            fullPage: false
+          });
+          
+          screenshotCount++;
+          console.log(`📸 Screenshot saved: ${screenshotPath} (${screenshotCount} total)`);
+        } catch (error) {
+          console.log(`⚠️  Screenshot failed: ${error.message}`);
+        }
+      }
+    }, screenshotInterval);
+
+    console.log(`📸 Screenshot timer started (every ${screenshotInterval/1000}s)`);
+  }
+
+  // Stop screenshot timer
+  stopScreenshotTimer() {
+    if (this.screenshotTimer) {
+      clearInterval(this.screenshotTimer);
+      console.log('📸 Screenshot timer stopped');
+    }
   }
 
   // Select search engine based on persona
@@ -99,6 +138,9 @@ class PersonaWarmupEngine {
       console.error('❌ Error in persona warm-up:', error.message);
       throw error;
     } finally {
+      // Stop screenshot timer
+      this.stopScreenshotTimer();
+      
       if (this.browser) {
         await this.browser.close();
       }
@@ -378,6 +420,11 @@ class PersonaWarmupEngine {
 
     await this.dwellOnPage();
     this.sessionMetrics.pages++;
+  }
+
+  // Visit site (alias for visitDirectSite)
+  async visitSite() {
+    await this.visitDirectSite();
   }
 
   // Visit Gmail

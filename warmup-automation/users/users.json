@@ -192,11 +192,92 @@
       "lastRun": null,
       "runCount": 0,
       "status": "idle"
+    },
+    {
+      "id": "a4019ed5-bd73-4783-a239-c7809eb62daf",
+      "name": "Dutch Test Profile",
+      "description": "Male 25-34 Dutch software developer for testing",
+      "enabled": true,
+      "config": {
+        "timeOnPage": {
+          "trends": {
+            "min": 8,
+            "max": 15,
+            "description": "Time to scan Google Trends page"
+          },
+          "newsSearch": {
+            "min": 5,
+            "max": 12,
+            "description": "Time to review search results"
+          },
+          "article": {
+            "min": 20,
+            "max": 45,
+            "description": "Time to read the article"
+          },
+          "scrollPause": {
+            "min": 0.5,
+            "max": 2,
+            "description": "Pause between scrolls"
+          }
+        },
+        "scroll": {
+          "amount": {
+            "min": 100,
+            "max": 400,
+            "description": "Pixels to scroll per action"
+          },
+          "count": {
+            "min": 1,
+            "max": 4,
+            "description": "Number of scrolls"
+          }
+        },
+        "mouse": {
+          "moveCount": {
+            "min": 2,
+            "max": 5,
+            "description": "Random mouse movements"
+          }
+        },
+        "typing": {
+          "delay": {
+            "min": 50,
+            "max": 150,
+            "description": "Milliseconds per character"
+          }
+        },
+        "browser": {
+          "headless": false,
+          "viewport": {
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        "automation": {
+          "numTrendsToProcess": 1,
+          "description": "Number of trends to process"
+        },
+        "antiDetection": {
+          "hideWebdriver": true,
+          "fakePlugins": true,
+          "fakeLanguages": true,
+          "randomViewportOffset": true
+        }
+      },
+      "schedule": null,
+      "createdAt": "2026-02-03T13:34:42.652Z",
+      "lastRun": "2026-02-03T13:37:16.854Z",
+      "runCount": 2,
+      "status": "running",
+      "updatedAt": "2026-02-03T13:39:14.792Z",
+      "lastRunStatus": "error",
+      "lastError": "Attempted to use detached Frame 'D70CEE5FBCB55B8462BD4A05A813FB42'."
     }
   ],
   "metadata": {
     "created": "2026-02-03T10:49:36.521Z",
-    "lastModified": "2026-02-03T10:49:36.522Z",
+    "lastModified": "2026-02-03T13:39:14.792Z",
     "version": "2.0.0"
   }
 }

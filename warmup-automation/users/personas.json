@@ -1,0 +1,86 @@
+{
+  "personas": [
+    {
+      "id": "ml6n4s0lb7b12ayj8e8",
+      "user_id": "a4019ed5-bd73-4783-a239-c7809eb62daf",
+      "gender": "male",
+      "age_group": "25-34",
+      "geo": "NL",
+      "profession": "Software Developer",
+      "activity_level": "medium",
+      "tech_savvy": "high",
+      "behavioral_weights": {
+        "search_engine_distribution": {
+          "google": 0.75,
+          "bing": 0.15,
+          "duckduckgo": 0.1
+        },
+        "site_preference_weights": {
+          "reddit": 0.2,
+          "youtube": 0.18,
+          "stackoverflow": 0.12,
+          "github": 0.1,
+          "forums": 0.15,
+          "news": 0.15,
+          "other": 0.1,
+          "general_sites": {
+            "0": "youtube.com",
+            "1": "gmail.com",
+            "2": "docs.google.com",
+            "3": "notion.so",
+            "4": "medium.com"
+          }
+        },
+        "session_pattern_weights": {
+          "session_duration_range": [
+            420000,
+            900000
+          ],
+          "sessions_per_day": [
+            4,
+            6
+          ],
+          "searches_per_session": [
+            4,
+            6
+          ],
+          "pages_per_session": [
+            6,
+            10
+          ],
+          "emails_per_day": [
+            3,
+            5
+          ],
+          "time_distribution": {
+            "morning": 0.3,
+            "afternoon": 0.4,
+            "evening": 0.25,
+            "late_night": 0.05
+          }
+        },
+        "email_behavior_weights": {
+          "reply_rate": 0.35,
+          "avg_dwell_time_ms": 45000
+        },
+        "noise_parameters": {
+          "mistakes_rate": 0.02,
+          "backspace_usage": "low",
+          "click_accuracy": 0.95,
+          "typos_rate": 0.02,
+          "misclicks_rate": 0.03,
+          "hesitation_rate": 0.1
+        }
+      },
+      "maturity_score": 0,
+      "trust_score": 0,
+      "created_at": "2026-02-03T13:34:50.325Z",
+      "last_used": null
+    }
+  ],
+  "metadata": {
+    "last_updated": "2026-02-03T13:34:50.325Z",
+    "version": "3.0.0",
+    "total_personas": 1
+  }
+}
