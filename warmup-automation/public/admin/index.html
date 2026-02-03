@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warmup Automation - User Management Panel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Warmup Automation</h1>
+            <p class="subtitle">User Management & Configuration Panel</p>
+            <div class="stats" id="stats">
+                <span class="stat">Loading...</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="actions">
+                <button class="btn btn-primary" onclick="showCreateUserModal()">
+                    <span class="icon">➕</span> Create User
+                </button>
+                <button class="btn btn-secondary" onclick="refreshUsers()">
+                    <span class="icon">🔄</span> Refresh
+                </button>
+                <button class="btn btn-secondary" onclick="showPresetsModal()">
+                    <span class="icon">⚙️</span> Behavioral Presets
+                </button>
+            </section>
+
+            <section class="users-section">
+                <h2>Users</h2>
+                <div id="usersList" class="users-list">
+                    <p class="loading">Loading users...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Create/Edit User Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create User</h2>
+                <button class="close-btn" onclick="closeModal('userModal')">&times;</button>
+            </div>
+            <form id="userForm" onsubmit="saveUser(event)">
+                <input type="hidden" id="userId">
+                
+                <div class="form-group">
+                    <label for="userName">User Name *</label>
+                    <input type="text" id="userName" required placeholder="Enter user name">
+                </div>
+
+                <div class="form-group">
+                    <label for="userDescription">Description</label>
+                    <input type="text" id="userDescription" placeholder="Brief description">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="userEnabled" checked>
+                        Enable User
+                    </label>
+                </div>
+
+                <div class="form-section">
+                    <h3>Behavioral Preset</h3>
+                    <select id="behaviorPreset" onchange="applyPreset()">
+                        <option value="">Custom Configuration</option>
+                        <option value="conservative">Conservative (slower, more natural)</option>
+                        <option value="moderate">Moderate (balanced)</option>
+                        <option value="aggressive">Aggressive (faster)</option>
+                    </select>
+                </div>
+
+                <div class="form-section">
+                    <h3>Time on Page (seconds)</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Trends Page (min-max)</label>
+                            <div class="input-group">
+                                <input type="number" id="trendsMin" value="8" min="1">
+                                <input type="number" id="trendsMax" value="15" min="1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>News Search (min-max)</label>
+                            <div class="input-group">
+                                <input type="number" id="searchMin" value="5" min="1">
+                                <input type="number" id="searchMax" value="12" min="1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Article Reading (min-max)</label>
+                            <div class="input-group">
+                                <input type="number" id="articleMin" value="20" min="1">
+                                <input type="number" id="articleMax" value="45" min="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Scrolling Behavior</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Scroll Amount (pixels)</label>
+                            <div class="input-group">
+                                <input type="number" id="scrollAmountMin" value="100" min="10">
+                                <input type="number" id="scrollAmountMax" value="400" min="10">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Scroll Count</label>
+                            <div class="input-group">
+                                <input type="number" id="scrollCountMin" value="1" min="1">
+                                <input type="number" id="scrollCountMax" value="4" min="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Automation</h3>
+                    <div class="form-group">
+                        <label>Number of Trends to Process</label>
+                        <input type="number" id="numTrends" value="1" min="1" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="headless" checked>
+                            Run in Headless Mode (no visible browser)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Schedule</h3>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="scheduleEnabled" onchange="toggleSchedule()">
+                            Enable Scheduling
+                        </label>
+                    </div>
+                    <div class="form-group" id="scheduleGroup" style="display: none;">
+                        <label>Cron Expression</label>
+                        <input type="text" id="cronExpression" placeholder="0 9 * * *">
+                        <small>Examples: "0 9 * * *" (daily 9am), "0 */4 * * *" (every 4 hours)</small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save User</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('userModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="detailsTitle">User Details</h2>
+                <button class="close-btn" onclick="closeModal('detailsModal')">&times;</button>
+            </div>
+            <div id="detailsContent"></div>
+        </div>
+    </div>
+
+    <!-- Presets Modal -->
+    <div id="presetsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Behavioral Presets</h2>
+                <button class="close-btn" onclick="closeModal('presetsModal')">&times;</button>
+            </div>
+            <div id="presetsContent"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

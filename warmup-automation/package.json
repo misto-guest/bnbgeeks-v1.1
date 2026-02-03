@@ -1,17 +1,27 @@
 {
   "name": "warmup-automation",
-  "version": "1.0.0",
-  "description": "Chrome warm-up automation with Google Trends and News",
-  "main": "warmup.js",
-  "type": "module",
+  "version": "2.0.0",
+  "description": "Chrome warm-up automation with user management and CRUD panel",
+  "main": "warmup-user-aware.js",
   "scripts": {
-    "start": "node warmup.js",
-    "test": "node warmup.js --dry-run"
+    "start": "node warmup-user-aware.js",
+    "server": "node server/index.js",
+    "dev": "node server/index.js",
+    "create-admin": "node scripts/create-admin-user.js"
   },
-  "dependencies": {
-    "puppeteer": "^23.0.0"
-  },
-  "keywords": ["automation", "puppeteer", "chrome"],
+  "keywords": [
+    "puppeteer",
+    "automation",
+    "warmup",
+    "chrome"
+  ],
   "author": "",
-  "license": "MIT"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.22.1",
+    "node-cron": "^3.0.3",
+    "puppeteer": "^23.11.1",
+    "uuid": "^11.1.0"
+  }
 }

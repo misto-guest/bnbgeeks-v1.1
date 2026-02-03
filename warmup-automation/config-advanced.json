@@ -1,0 +1,156 @@
+{
+  "geo": {
+    "default": "US",
+    "description": "Country code for Google Trends (US, UK, CA, AU, etc.)"
+  },
+  
+  "timeOnPage": {
+    "initial": {
+      "min": 8,
+      "max": 15,
+      "description": "Time on initial page (Trends or News)"
+    },
+    "pogoStick": {
+      "min": 5,
+      "max": 15,
+      "description": "Time on page before clicking back (pogo stick mode)"
+    },
+    "article": {
+      "min": 20,
+      "max": 45,
+      "description": "Time reading article/content"
+    },
+    "scrollPause": {
+      "min": 0.5,
+      "max": 2,
+      "description": "Pause between scroll actions"
+    },
+    "linkVisit": {
+      "min": 8,
+      "max": 20,
+      "description": "Time on internal link pages"
+    }
+  },
+
+  "scroll": {
+    "amount": {
+      "min": 100,
+      "max": 400,
+      "description": "Pixels to scroll per action"
+    },
+    "count": {
+      "min": 1,
+      "max": 4,
+      "description": "Number of scrolls per page view"
+    }
+  },
+
+  "mouse": {
+    "moveCount": {
+      "min": 2,
+      "max": 5,
+      "description": "Random mouse movements per action"
+    },
+    "moveDelay": {
+      "min": 100,
+      "max": 500,
+      "description": "Delay between mouse movements (ms)"
+    }
+  },
+
+  "typing": {
+    "delay": {
+      "min": 50,
+      "max": 150,
+      "description": "Milliseconds per character (human typing)"
+    },
+    "mistakeChance": 0.02,
+    "description": "Chance of typo (2%) - with backspace correction"
+  },
+
+  "pogoStick": {
+    "enabled": true,
+    "description": "Visit result, go back, visit another result",
+    "minResults": 2,
+    "maxResults": 5,
+    "description": "How many results to pogo-stick through"
+  },
+
+  "internalLinks": {
+    "enabled": true,
+    "min": 0,
+    "max": 2,
+    "description": "Random internal links to visit (0-2 per page)",
+    "focus": "main-menu",
+    "description": "Focus on main menu links, never footer",
+    "avoid": [
+      "footer",
+      "copyright",
+      "privacy",
+      "terms",
+      "cookie",
+      "sitemap",
+      "social",
+      "subscribe"
+    ]
+  },
+
+  "cpcCookies": {
+    "enabled": false,
+    "description": "Deep funnel navigation for lead/sales",
+    "targetKeywords": [
+      "insurance",
+      "lawyer",
+      "mortgage",
+      "loan",
+      "software",
+      "service"
+    ],
+    "maxDepth": 3,
+    "description": "How deep to go into the funnel (pages visited)",
+    "conversionIndicators": [
+      "contact",
+      "quote",
+      "apply",
+      "sign up",
+      "register",
+      "buy",
+      "order",
+      "pricing"
+    ]
+  },
+
+  "humanEmulation": {
+    "randomScrollPath": true,
+    "description": "Scroll in random pattern (not just down)",
+    "hoverEffects": true,
+    "description": "Hover over elements before clicking",
+    "readingPattern": true,
+    "description": "F-shaped reading pattern simulation",
+    "dwellTimeVariation": true,
+    "description": "Variable time on different sections",
+    "tabSwitching": {
+      "enabled": false,
+      "chance": 0.1,
+      "description": "10% chance to switch tabs (if multiple open)"
+    }
+  },
+
+  "behavior": {
+    "runFullAutomation": true,
+    "description": "scroll → wait → click → read",
+    "extractionMethod": "trending",
+    "description": "trending, custom, or cpc mode",
+    "customKeywords": [],
+    "description": "For manual keyword targeting"
+  },
+
+  "antiDetection": {
+    "hideWebdriver": true,
+    "fakePlugins": true,
+    "fakeLanguages": true,
+    "randomViewportOffset": true,
+    "randomUserAgent": false,
+    "description": "Rotate user agent string"
+  }
+}
