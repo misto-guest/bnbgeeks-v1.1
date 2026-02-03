@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Campaign - GPS Campaign Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .breadcrumb {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--danger);
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--success);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .icon-option {
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .icon-option:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .icon-option.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .icon-option .emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .icon-option .label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="breadcrumb">
+                    <a href="/dashboard">← Back to Dashboard</a>
+                </div>
+                <h1>➕ Create New Campaign</h1>
+            </div>
+            <p class="breadcrumb">Set up a new GPS tracking campaign with custom parameters</p>
+        </header>
+
+        <div class="card">
+            <div id="error-message" class="error" style="display: none;"></div>
+            <div id="success-message" class="success" style="display: none;"></div>
+
+            <form id="campaign-form">
+                <div class="form-group">
+                    <label for="campaign-name">Campaign Name *</label>
+                    <input
+                        type="text"
+                        id="campaign-name"
+                        name="name"
+                        placeholder="e.g., Downtown Route Testing"
+                        required
+                    >
+                    <div class="hint">Give your campaign a descriptive name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="device-id">Device ID</label>
+                    <input
+                        type="text"
+                        id="device-id"
+                        name="device_id"
+                        placeholder="e.g., iphone-15-pro"
+                    >
+                    <div class="hint">Leave blank to auto-select an available device</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="account-mode">Account Mode</label>
+                    <select id="account-mode" name="account_mode">
+                        <option value="normal">Normal Mode (Recommended)</option>
+                        <option value="aggressive">Aggressive Mode</option>
+                        <option value="stealth">Stealth Mode</option>
+                    </select>
+                    <div class="hint">Choose how the GPS tracking behaves</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Duration (hours) *</label>
+                    <input
+                        type="number"
+                        id="duration"
+                        name="duration_hours"
+                        min="1"
+                        max="24"
+                        value="1"
+                        required
+                    >
+                    <div class="hint">How long should the campaign run?</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Quick Select Duration</label>
+                    <div class="icon-grid">
+                        <div class="icon-option" onclick="setDuration(1)">
+                            <div class="emoji">⏱️</div>
+                            <div class="label">1 Hour</div>
+                        </div>
+                        <div class="icon-option" onclick="setDuration(4)">
+                            <div class="emoji">⏰</div>
+                            <div class="label">4 Hours</div>
+                        </div>
+                        <div class="icon-option" onclick="setDuration(8)">
+                            <div class="emoji">🕐</div>
+                            <div class="label">8 Hours</div>
+                        </div>
+                        <div class="icon-option" onclick="setDuration(24)">
+                            <div class="emoji">📅</div>
+                            <div class="label">24 Hours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        Create Campaign
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function setDuration(hours) {
+            document.getElementById('duration').value = hours;
+
+            // Visual feedback
+            document.querySelectorAll('.icon-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.target.closest('.icon-option').classList.add('selected');
+        }
+
+        function cancel() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = '/dashboard';
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        document.getElementById('campaign-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Creating Campaign <span class="spinner"></span>';
+
+            const formData = {
+                name: document.getElementById('campaign-name').value,
+                device_id: document.getElementById('device-id').value || null,
+                account_mode: document.getElementById('account-mode').value,
+                duration_hours: parseInt(document.getElementById('duration').value)
+            };
+
+            try {
+                const response = await fetch('/api/campaigns', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess(`✅ Campaign "${formData.name}" created successfully! Redirecting...`);
+
+                    // Redirect to dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 2000);
+                } else {
+                    showError(`❌ ${data.error || 'Failed to create campaign'}`);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            } catch (error) {
+                showError(`❌ Network error: ${error.message}`);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS Campaign Manager v2.2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .campaign-list {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div>
+                    <h1>📍 GPS Campaign Manager v2.2</h1>
+                    <span class="status-badge">Live</span>
+                </div>
+                <div class="header-actions">
+                    <a href="/create" class="btn btn-primary">➕ Create Campaign</a>
+                    <button class="btn btn-success" onclick="refreshDashboard()">
+                        <span id="refresh-icon">🔄</span> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-total">-</div>
+                    <div class="stat-label">Total Campaigns</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-value" id="stat-completed">-</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-value" id="stat-running">-</div>
+                    <div class="stat-label">Running Now</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-success-rate">-</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3 class="card-title">📊 Campaigns by Status</h3>
+                <canvas id="statusChart" height="200"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">📱 Account Modes</h3>
+                <canvas id="modeChart" height="200"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">⏱️ Duration Distribution</h3>
+                <canvas id="durationChart" height="200"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">📈 30-Day Trend</h3>
+                <canvas id="trendChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="campaign-list">
+            <h3 class="card-title">🚀 Active Campaigns</h3>
+            <div id="campaigns-container">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <p>No active campaigns running</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '';
+        let statusChart, modeChart, durationChart, trendChart;
+
+        // Initialize Socket.IO
+        const socket = io();
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+        });
+
+        socket.on('campaign_progress', (data) => {
+            console.log('Campaign progress:', data);
+            updateCampaignProgress(data);
+        });
+
+        socket.on('campaign_completed', (data) => {
+            console.log('Campaign completed:', data);
+            refreshDashboard();
+        });
+
+        socket.on('log_update', (data) => {
+            console.log('Log update:', data);
+        });
+
+        // Fetch stats
+        async function fetchStats() {
+            try {
+                const res = await fetch(`${API_BASE}/api/dashboard/stats`);
+                const data = await res.json();
+
+                document.getElementById('stat-total').textContent = data.total_campaigns;
+                document.getElementById('stat-completed').textContent = data.completed;
+                document.getElementById('stat-running').textContent = data.running;
+                document.getElementById('stat-success-rate').textContent = data.success_rate + '%';
+            } catch (err) {
+                console.error('Failed to fetch stats:', err);
+            }
+        }
+
+        // Fetch charts
+        async function fetchCharts() {
+            try {
+                const res = await fetch(`${API_BASE}/api/dashboard/charts`);
+                return await res.json();
+            } catch (err) {
+                console.error('Failed to fetch charts:', err);
+                return null;
+            }
+        }
+
+        // Fetch active campaigns
+        async function fetchActiveCampaigns() {
+            try {
+                const res = await fetch(`${API_BASE}/api/campaigns/active`);
+                return await res.json();
+            } catch (err) {
+                console.error('Failed to fetch active campaigns:', err);
+                return [];
+            }
+        }
+
+        // Update active campaigns list
+        function updateActiveCampaigns(campaigns) {
+            const container = document.getElementById('campaigns-container');
+
+            if (!campaigns || campaigns.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No active campaigns running</p>
+                        <a href="/create" class="btn btn-primary" style="margin-top: 16px;">Create Your First Campaign</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = campaigns.map(c => `
+                <div class="campaign-item" id="campaign-${c.id}">
+                    <div class="campaign-header">
+                        <div class="campaign-name">${escapeHtml(c.name)}</div>
+                        <span class="badge badge-${getStatusClass(c.status)}">${c.status}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${c.progress}%"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="step-${c.id}">${escapeHtml(c.current_step || 'Initializing...')}</span>
+                        <span>${Math.round(c.progress)}%</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update single campaign progress
+        function updateCampaignProgress(data) {
+            const campaignElement = document.getElementById(`campaign-${data.campaign_id}`);
+            if (campaignElement) {
+                const progressFill = campaignElement.querySelector('.progress-fill');
+                const progressText = campaignElement.querySelector('.progress-text span:last-child');
+                const stepText = document.getElementById(`step-${data.campaign_id}`);
+
+                if (progressFill) progressFill.style.width = data.progress + '%';
+                if (progressText) progressText.textContent = Math.round(data.progress) + '%';
+                if (stepText) stepText.textContent = data.current_step;
+            }
+        }
+
+        // Initialize charts
+        function initCharts(data) {
+            // Status chart
+            const statusCtx = document.getElementById('statusChart').getContext('2d');
+            statusChart = new Chart(statusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.by_status.map(d => d.status),
+                    datasets: [{
+                        data: data.by_status.map(d => d.count),
+                        backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#6b7280']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Mode chart
+            const modeCtx = document.getElementById('modeChart').getContext('2d');
+            modeChart = new Chart(modeCtx, {
+                type: 'pie',
+                data: {
+                    labels: data.by_mode.map(d => d.mode),
+                    datasets: [{
+                        data: data.by_mode.map(d => d.count),
+                        backgroundColor: ['#2563eb', '#8b5cf6', '#ec4899']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Duration chart
+            const durationCtx = document.getElementById('durationChart').getContext('2d');
+            durationChart = new Chart(durationCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.duration_distribution.map(d => d.range),
+                    datasets: [{
+                        label: 'Campaigns',
+                        data: data.duration_distribution.map(d => d.count),
+                        backgroundColor: '#2563eb'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Trend chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: data.trend_30days.map(d => d.date),
+                    datasets: [{
+                        label: 'Campaigns',
+                        data: data.trend_30days.map(d => d.count),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // Refresh dashboard
+        async function refreshDashboard() {
+            const refreshIcon = document.getElementById('refresh-icon');
+            refreshIcon.textContent = '⏳';
+
+            await Promise.all([
+                fetchStats(),
+                fetchCharts().then(data => {
+                    if (data) initCharts(data);
+                }),
+                fetchActiveCampaigns().then(campaigns => updateActiveCampaigns(campaigns))
+            ]);
+
+            setTimeout(() => {
+                refreshIcon.textContent = '🔄';
+            }, 500);
+        }
+
+        // Helper function
+        function getStatusClass(status) {
+            const classes = {
+                'running': 'warning',
+                'completed': 'success',
+                'failed': 'danger',
+                'pending': 'warning'
+            };
+            return classes[status] || 'warning';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshDashboard();
+
+            // Auto-refresh every 5 seconds
+            setInterval(refreshDashboard, 5000);
+        });
+    </script>
+</body>
+</html>
