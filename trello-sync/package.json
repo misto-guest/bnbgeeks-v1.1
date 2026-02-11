@@ -1,0 +1,20 @@
+{
+  "name": "trello-sync",
+  "version": "1.0.0",
+  "description": "Auto-sync Trello cards with sub-agent activity",
+  "main": "sync.js",
+  "scripts": {
+    "sync": "node sync.js",
+    "init": "node sync.js --init",
+    "test": "node sync.js --test",
+    "dry-run": "node sync.js --dry-run",
+    "update": "node update-card.js",
+    "list": "node update-card.js --list"
+  },
+  "keywords": ["trello", "sync", "automation"],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

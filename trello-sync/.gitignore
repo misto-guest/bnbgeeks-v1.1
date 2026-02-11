@@ -1,0 +1,17 @@
+# Config with API credentials
+config.json
+
+# Event logs
+event-log.json
+sync.log
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local

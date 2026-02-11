@@ -1,0 +1,20 @@
+services:
+  # Web Service
+  - type: web
+    name: legiit-automation
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: HEADLESS
+        value: true
+      - key: TIMEOUT
+        value: 60000
+      - key: LEGIIT_EMAIL
+        sync: false
+      - key: LEGIIT_PASSWORD
+        sync: false

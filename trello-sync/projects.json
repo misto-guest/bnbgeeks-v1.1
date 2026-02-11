@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "id": "bol-outreach",
+      "name": "Bol.com Outreach Platform",
+      "cardId": null,
+      "subAgents": ["build-bol-outreach-dashboard", "enhance-design-qa-deploy-bol-platform"],
+      "status": "done",
+      "lastUpdate": "2026-02-10T13:00:00Z",
+      "description": "Complete outreach platform for Bol.com influencers with dashboard and deployment automation"
+    },
+    {
+      "id": "bnbgeeks",
+      "name": "bnbgeeks v1.1",
+      "cardId": null,
+      "subAgents": ["deploy-bnbgeeks-v1.1", "enhance-bnbgeeks-design-world-class"],
+      "status": "in-progress",
+      "lastUpdate": "2026-02-10T13:30:00Z",
+      "description": "Version 1.1 with enhanced design and world-class deployment"
+    },
+    {
+      "id": "repo-migration",
+      "name": "Repo Migration to misto123",
+      "cardId": null,
+      "subAgents": ["migrate-keizersgracht-repos"],
+      "status": "in-progress",
+      "lastUpdate": "2026-02-10T09:30:00Z",
+      "description": "Migrate all Keizersgracht project repositories to misto123 organization"
+    },
+    {
+      "id": "nightly-warmup",
+      "name": "Nightly Warmup Automation",
+      "cardId": null,
+      "subAgents": ["setup-nightly-warmup-schedule"],
+      "status": "pending",
+      "lastUpdate": "2026-02-10T11:00:00Z",
+      "description": "Automated nightly warmup tasks to keep systems active"
+    }
+  ]
+}

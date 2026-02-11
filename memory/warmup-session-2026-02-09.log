@@ -1,0 +1,81 @@
+[2026-02-09T16:17:14.487Z] [INFO] 
+======================================================================
+[2026-02-09T16:17:14.488Z] [INFO] 🤖 ALFRED - 2-HOUR GOOGLE WARMUP BATCH
+[2026-02-09T16:17:14.488Z] [INFO] ======================================================================
+[2026-02-09T16:17:14.488Z] [INFO] 📅 Start Time: 2026-02-09T16:17:14.488Z
+[2026-02-09T16:17:14.489Z] [INFO] ⏱️  Target Duration: 120 minutes
+[2026-02-09T16:17:14.489Z] [INFO] 🎯 Profiles: 3
+[2026-02-09T16:17:14.489Z] [INFO] 📊 Activities per session: 5
+
+[2026-02-09T16:17:14.489Z] [INFO] 📁 Directories created and ready
+[2026-02-09T16:17:14.489Z] [INFO] 🎯 Selecting profiles for warmup session...
+[2026-02-09T16:17:15.116Z] [ERROR] 
+❌ FATAL ERROR: Invalid JSON response: Not Found
+[2026-02-09T16:17:15.117Z] [ERROR] 
+❌ Fatal error: Error: Invalid JSON response: Not Found
+[2026-02-09T16:18:09.905Z] [INFO] 
+======================================================================
+[2026-02-09T16:18:09.906Z] [INFO] 🤖 ALFRED - 2-HOUR GOOGLE WARMUP BATCH
+[2026-02-09T16:18:09.906Z] [INFO] ======================================================================
+[2026-02-09T16:18:09.906Z] [INFO] 📅 Start Time: 2026-02-09T16:18:09.906Z
+[2026-02-09T16:18:09.906Z] [INFO] ⏱️  Target Duration: 120 minutes
+[2026-02-09T16:18:09.906Z] [INFO] 🎯 Profiles: 3
+[2026-02-09T16:18:09.906Z] [INFO] 📊 Activities per session: 5
+
+[2026-02-09T16:18:09.906Z] [INFO] 📁 Directories created and ready
+[2026-02-09T16:18:09.906Z] [INFO] 🎯 Selecting profiles for warmup session...
+[2026-02-09T16:18:10.304Z] [INFO] ✅ Profiles selected:
+[2026-02-09T16:18:10.304Z] [INFO]    Profile 1: k12am9a2
+[2026-02-09T16:18:10.304Z] [INFO]    Profile 2: j65e8yp
+[2026-02-09T16:18:10.304Z] [INFO]    Profile 3: j7153wh
+[2026-02-09T16:18:10.304Z] [INFO] 
+======================================================================
+[2026-02-09T16:18:10.305Z] [INFO] 🔄 Cycle 1 | Time Remaining: 119m 59s
+[2026-02-09T16:18:10.305Z] [INFO] ======================================================================
+
+[2026-02-09T16:18:10.305Z] [INFO] 
+🚀 Starting Profile k12am9a2 - Session 1
+[2026-02-09T16:20:18.564Z] [INFO] ✅ Session completed: 4/5 activities (128s)
+[2026-02-09T16:20:18.565Z] [INFO] ⏳ Waiting 6s before next profile...
+[2026-02-09T16:20:24.576Z] [INFO] 
+🚀 Starting Profile j65e8yp - Session 1
+[2026-02-09T16:20:26.112Z] [INFO] ✅ Session completed: undefined/undefined activities (2s)
+[2026-02-09T16:20:26.113Z] [INFO] ⚠️  Profile j65e8yp: Low success rate (0%) - increasing delays
+[2026-02-09T16:20:26.114Z] [INFO] ⏳ Waiting 7s before next profile...
+[2026-02-09T16:20:32.814Z] [INFO] 
+🚀 Starting Profile j7153wh - Session 1
+[2026-02-09T16:20:34.621Z] [INFO] ✅ Session completed: undefined/undefined activities (2s)
+[2026-02-09T16:20:34.621Z] [INFO] ⚠️  Profile j7153wh: Low success rate (0%) - increasing delays
+[2026-02-09T16:20:34.621Z] [INFO] 
+⏳ Cycle complete. Waiting 0m 51s before next cycle...
+[2026-02-09T16:20:34.621Z] [INFO] 💡 Tip: Alfred is monitoring and adapting the strategy
+
+[2026-02-09T16:21:26.286Z] [INFO] 
+======================================================================
+[2026-02-09T16:21:26.288Z] [INFO] 🔄 Cycle 2 | Time Remaining: 116m 43s
+[2026-02-09T16:21:26.289Z] [INFO] ======================================================================
+
+[2026-02-09T16:21:26.289Z] [INFO] 
+🚀 Starting Profile k12am9a2 - Session 2
+[2026-02-09T16:23:44.781Z] [INFO] ✅ Session completed: 5/5 activities (138s)
+[2026-02-09T16:23:44.782Z] [INFO] 💡 Profile k12am9a2: High success rate (100%) - could increase activities
+[2026-02-09T16:23:44.782Z] [INFO] ⏳ Waiting 10s before next profile...
+[2026-02-09T16:23:54.736Z] [INFO] 
+🚀 Starting Profile j65e8yp - Session 2
+[2026-02-09T16:44:18.291Z] [INFO] ✅ Session completed: 4/5 activities (1224s)
+[2026-02-09T16:44:18.293Z] [INFO] ⏳ Waiting 8s before next profile...
+[2026-02-09T16:44:26.560Z] [INFO] 
+🚀 Starting Profile j7153wh - Session 2
+[2026-02-09T16:46:46.436Z] [INFO] ✅ Session completed: 5/5 activities (140s)
+[2026-02-09T16:46:46.436Z] [INFO] 💡 Profile j7153wh: High success rate (100%) - could increase activities
+[2026-02-09T16:46:46.436Z] [INFO] 
+⏳ Cycle complete. Waiting 0m 40s before next cycle...
+[2026-02-09T16:46:46.436Z] [INFO] 💡 Tip: Alfred is monitoring and adapting the strategy
+
+[2026-02-09T16:47:27.183Z] [INFO] 
+======================================================================
+[2026-02-09T16:47:27.185Z] [INFO] 🔄 Cycle 3 | Time Remaining: 90m 42s
+[2026-02-09T16:47:27.186Z] [INFO] ======================================================================
+
+[2026-02-09T16:47:27.186Z] [INFO] 
+🚀 Starting Profile k12am9a2 - Session 3

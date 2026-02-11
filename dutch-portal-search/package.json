@@ -1,0 +1,17 @@
+{
+  "name": "dutch-portal-search",
+  "version": "1.0.0",
+  "description": "AdsPower automation to find Dutch portals mentioning mrkortingscode.nl",
+  "main": "search.js",
+  "scripts": {
+    "start": "node search.js",
+    "test": "node search.js --test"
+  },
+  "dependencies": {
+    "axios": "^1.13.5",
+    "csv-writer": "^1.6.0",
+    "puppeteer": "^21.0.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}

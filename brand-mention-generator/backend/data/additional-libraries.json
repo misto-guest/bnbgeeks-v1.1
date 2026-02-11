@@ -1,0 +1,272 @@
+[
+  {
+    "id": "bibliotheek-almere",
+    "name": "Bibliotheek Almere",
+    "base_url": "https://www.bibliotheekalmere.nl",
+    "search_url": "https://www.bibliotheekalmere.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-amstelveen",
+    "name": "Bibliotheek Amstelveen",
+    "base_url": "https://www.bibliotheekamstelveen.nl",
+    "search_url": "https://www.bibliotheekamstelveen.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-arnhem",
+    "name": "Bibliotheek Arnhem",
+    "base_url": "https://www.bibliotheekarnhem.nl",
+    "search_url": "https://www.bibliotheekarnhem.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-breda",
+    "name": "Bibliotheek Breda",
+    "base_url": "https://www.bibliotheekbreda.nl",
+    "search_url": "https://www.bibliotheekbreda.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-delft",
+    "name": "Bibliotheek Delft",
+    "base_url": "https://www.bibliotheekdelft.nl",
+    "search_url": "https://www.bibliotheekdelft.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-den-bosch",
+    "name": "Bibliotheek Den Bosch",
+    "base_url": "https://www.bibliotheekdenbosch.nl",
+    "search_url": "https://www.bibliotheekdenbosch.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-deventer",
+    "name": "Bibliotheek Deventer",
+    "base_url": "https://www.bibliotheekdeventer.nl",
+    "search_url": "https://www.bibliotheekdeventer.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-dordrecht",
+    "name": "Bibliotheek Dordrecht",
+    "base_url": "https://www.bibliotheekdordrecht.nl",
+    "search_url": "https://www.bibliotheekdordrecht.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-ede",
+    "name": "Bibliotheek Ede",
+    "base_url": "https://www.bibliotheekede.nl",
+    "search_url": "https://www.bibliotheekede.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "low",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-enschede",
+    "name": "Bibliotheek Enschede",
+    "base_url": "https://www.bibliotheekenschede.nl",
+    "search_url": "https://www.bibliotheekenschede.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-groningen",
+    "name": "Bibliotheek Groningen",
+    "base_url": "https://www.bibliotheekgroningen.nl",
+    "search_url": "https://www.bibliotheekgroningen.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-haarlem",
+    "name": "Bibliotheek Haarlem",
+    "base_url": "https://www.bibliotheekhaarlem.nl",
+    "search_url": "https://www.bibliotheekhaarlem.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-helmond",
+    "name": "Bibliotheek Helmond",
+    "base_url": "https://www.bibliotheekhelmond.nl",
+    "search_url": "https://www.bibliotheekhelmond.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "low",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-hengelo",
+    "name": "Bibliotheek Hengelo",
+    "base_url": "https://www.bibliotheekhengelo.nl",
+    "search_url": "https://www.bibliotheekhengelo.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-hilversum",
+    "name": "Bibliotheek Hilversum",
+    "base_url": "https://www.bibliotheekhilversum.nl",
+    "search_url": "https://www.bibliotheekhilversum.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-leeuwarden",
+    "name": "Bibliotheek Leeuwarden",
+    "base_url": "https://www.bibliotheekleeuwarden.nl",
+    "search_url": "https://www.bibliotheekleeuwarden.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-leiden",
+    "name": "Bibliotheek Leiden",
+    "base_url": "https://www.bibliotheekleiden.nl",
+    "search_url": "https://www.bibliotheekleiden.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-maastricht",
+    "name": "Bibliotheek Maastricht",
+    "base_url": "https://www.bibliotheekmaastricht.nl",
+    "search_url": "https://www.bibliotheekmaastricht.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-nijmegen",
+    "name": "Bibliotheek Nijmegen",
+    "base_url": "https://www.bibliotheeknijmegen.nl",
+    "search_url": "https://www.bibliotheeknijmegen.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-oosterhout",
+    "name": "Bibliotheek Oosterhout",
+    "base_url": "https://www.bibliotheekoosterhout.nl",
+    "search_url": "https://www.bibliotheekoosterhout.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "low",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-sittard",
+    "name": "Bibliotheek Sittard",
+    "base_url": "https://www.bibliotheeksittard.nl",
+    "search_url": "https://www.bibliotheeksittard.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "low",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-tilburg",
+    "name": "Bibliotheek Tilburg",
+    "base_url": "https://www.bibliotheektilburg.nl",
+    "search_url": "https://www.bibliotheektilburg.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-utrecht",
+    "name": "Bibliotheek Utrecht (already in DB)",
+    "base_url": "https://www.bibliotheekutrecht.nl",
+    "search_url": "https://www.bibliotheekutrecht.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-venlo",
+    "name": "Bibliotheek Venlo",
+    "base_url": "https://www.bibliotheekvenlo.nl",
+    "search_url": "https://www.bibliotheekvenlo.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-zaandam",
+    "name": "Bibliotheek Zaandam",
+    "base_url": "https://www.bibliotheekzaandam.nl",
+    "search_url": "https://www.bibliotheekzaandam.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-zwolle",
+    "name": "Bibliotheek Zwolle",
+    "base_url": "https://www.bibliotheekzwolle.nl",
+    "search_url": "https://www.bibliotheekzwolle.nl/zoeken?q={query}",
+    "search_path": "/zoeken",
+    "type": "library",
+    "authority": "medium",
+    "country": "NL"
+  },
+  {
+    "id": "bibliotheek-tilburg-locaties",
+    "name": "Bibliotheek Tilburg Locaties",
+    "base_url": "https://www.tilburg.nl/bibliotheek",
+    "search_url": "https://www.tilburg.nl/bibliotheek/zoeken?q={query}",
+    "search_path": "/bibliotheek/zoeken",
+    "type": "library",
+    "authority": "high",
+    "country": "NL"
+  }
+]

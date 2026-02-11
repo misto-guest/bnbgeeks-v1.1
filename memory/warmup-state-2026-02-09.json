@@ -1,0 +1,92 @@
+{
+  "startTime": 1770653889906,
+  "profiles": [
+    "k12am9a2",
+    "j65e8yp",
+    "j7153wh"
+  ],
+  "results": {
+    "k12am9a2": {
+      "profileIndex": 1,
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "startTime": "2026-02-09T16:18:10.305Z",
+          "duration": 128259,
+          "completed": 4,
+          "total": 5,
+          "success": true
+        },
+        {
+          "sessionNumber": 2,
+          "startTime": "2026-02-09T16:21:26.289Z",
+          "duration": 138492,
+          "completed": 5,
+          "total": 5,
+          "success": true
+        }
+      ],
+      "totalActivities": 10,
+      "successfulActivities": 9,
+      "errors": []
+    },
+    "j65e8yp": {
+      "profileIndex": 2,
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "startTime": "2026-02-09T16:20:24.576Z",
+          "duration": 1536,
+          "completed": 0,
+          "total": 0,
+          "success": false
+        },
+        {
+          "sessionNumber": 2,
+          "startTime": "2026-02-09T16:23:54.736Z",
+          "duration": 1223555,
+          "completed": 4,
+          "total": 5,
+          "success": true
+        }
+      ],
+      "totalActivities": 5,
+      "successfulActivities": 4,
+      "errors": []
+    },
+    "j7153wh": {
+      "profileIndex": 3,
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "startTime": "2026-02-09T16:20:32.814Z",
+          "duration": 1807,
+          "completed": 0,
+          "total": 0,
+          "success": false
+        },
+        {
+          "sessionNumber": 2,
+          "startTime": "2026-02-09T16:44:26.560Z",
+          "duration": 139876,
+          "completed": 5,
+          "total": 5,
+          "success": true
+        }
+      ],
+      "totalActivities": 5,
+      "successfulActivities": 5,
+      "errors": []
+    }
+  },
+  "errors": [],
+  "adaptations": [
+    "Profile j65e8yp: Low success rate (0%) - increasing delays",
+    "Profile j7153wh: Low success rate (0%) - increasing delays",
+    "Profile k12am9a2: High success rate (100%) - could increase activities",
+    "Profile j7153wh: High success rate (100%) - could increase activities"
+  ],
+  "totalActivities": 20,
+  "successfulActivities": 18,
+  "lastUpdate": "2026-02-09T16:46:46.436Z"
+}

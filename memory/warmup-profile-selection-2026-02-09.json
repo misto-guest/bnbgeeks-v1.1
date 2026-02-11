@@ -1,0 +1,99 @@
+{
+  "timestamp": "2026-02-09T16:18:10.303Z",
+  "profiles": [
+    {
+      "index": 1,
+      "user_id": "k12am9a2",
+      "details": {
+        "name": "patmcgee727@gmail.com",
+        "domain_name": "",
+        "created_time": "1753443982",
+        "ip": "178.230.135.174",
+        "ip_country": "nl",
+        "password": "",
+        "fbcc_proxy_acc_id": "162",
+        "ipchecker": "",
+        "fakey": "",
+        "sys_app_cate_id": "0",
+        "user_proxy_config": {
+          "proxy_soft": "other",
+          "proxy_type": "http",
+          "proxy_host": "185.14.187.8",
+          "proxy_port": "8086",
+          "proxy_user": "admin",
+          "proxy_password": "cool",
+          "proxy_url": "",
+          "proxy_partner": "",
+          "latest_ip": "178.230.149.162"
+        },
+        "group_id": "0",
+        "group_name": "",
+        "remark": "NL | Mobile 8086",
+        "serial_number": "287",
+        "last_open_time": "1770306000",
+        "user_id": "k12am9a2",
+        "username": ""
+      }
+    },
+    {
+      "index": 2,
+      "user_id": "j65e8yp",
+      "details": {
+        "name": "Paypal | 002 | NL",
+        "domain_name": "paypal.com",
+        "created_time": "1681307088",
+        "ip": "178.230.135.174",
+        "ip_country": "nl",
+        "password": "",
+        "fbcc_proxy_acc_id": "162",
+        "ipchecker": "",
+        "fakey": "",
+        "sys_app_cate_id": "15471",
+        "user_proxy_config": {
+          "proxy_soft": "other",
+          "proxy_type": "http",
+          "proxy_host": "185.14.187.8",
+          "proxy_port": "8086",
+          "proxy_user": "admin",
+          "proxy_password": "cool",
+          "proxy_url": "",
+          "proxy_partner": "",
+          "latest_ip": "178.230.149.162"
+        },
+        "group_id": "2341385",
+        "group_name": "Bram",
+        "remark": "NL | Mobile | 8003\nPaypal NL login acc 002",
+        "serial_number": "30",
+        "last_open_time": "1770284831",
+        "user_id": "j65e8yp",
+        "username": ""
+      }
+    },
+    {
+      "index": 3,
+      "user_id": "j7153wh",
+      "details": {
+        "name": "kauflandrankingservice@gmail.com | paullewis235@gmail.com",
+        "domain_name": "kaufland.de",
+        "created_time": "1684347611",
+        "ip": "138.84.109.209",
+        "ip_country": "ph",
+        "password": "",
+        "fbcc_proxy_acc_id": "",
+        "ipchecker": "ip2location",
+        "fakey": "",
+        "sys_app_cate_id": "15471",
+        "user_proxy_config": {
+          "proxy_soft": "no_proxy"
+        },
+        "group_id": "2345622",
+        "group_name": "Petros",
+        "remark": "DE | pingproxies | de 5",
+        "serial_number": "96",
+        "last_open_time": "1770636320",
+        "user_id": "j7153wh",
+        "username": ""
+      }
+    }
+  ]
+}

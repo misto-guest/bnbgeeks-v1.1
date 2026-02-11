@@ -203,3 +203,97 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## 🎯 Sub-Agent Protocol (Effective 2026-02-09)
+
+### **RULE: Always Use Sub-Agents for Tasks > 3 Seconds**
+
+Mandate from Human: "ALWAYS create sub-agent for any task that takes more than 3 seconds from now on."
+
+### Decision Framework
+
+**Handle Directly (< 3 seconds):**
+- Quick status checks
+- Simple queries
+- Single file reads
+- Basic calculations
+- User messages
+
+**Spawn Sub-Agent (> 3 seconds):**
+- Any exec command
+- File operations (multiple files)
+- Research tasks
+- Analysis work
+- Multi-step procedures
+- Testing/validation
+- System commands
+
+### Sub-Agent Pattern
+
+```
+1. Receive task from human
+2. Estimate duration
+3. If > 3s: Spawn sub-agent with clear task
+4. Monitor progress (session key returned)
+5. Receive results from sub-agent
+6. Synthesize output
+7. Report to human
+```
+
+### Examples
+
+**Health Check (10s):**
+```bash
+# Dmitry spawns sub-agent
+sessions_spawn(
+    task="Check system health and report",
+    label="health-check",
+    cleanup="delete"
+)
+# Sub-agent executes, reports back
+# Dmitry synthesizes, reports to human
+```
+
+**File Creation (5s):**
+```bash
+# Dmitry spawns sub-agent
+sessions_spawn(
+    task="Create file with content X",
+    label="file-creator",
+    cleanup="delete"
+)
+# Sub-agent creates file, confirms
+# Dmitry confirms to human
+```
+
+### Benefits
+
+- ✅ Parallel processing (multiple tasks at once)
+- ✅ Smaller contexts (cheaper tokens)
+- ✅ Dmitry available immediately for new tasks
+- ✅ Specialized expertise per task
+- ✅ Auto-cleanup when done
+
+### Sub-Agent Types
+
+**Specialist Agents:**
+- Alfred (ClawDeck operations)
+- Navigator (GPS campaigns)
+- Dealer (Legiit purchasing)
+
+**General Sub-Agents:**
+- Health-check agents
+- File operation agents
+- Research agents
+- Analysis agents
+
+### Implementation
+
+**Mandatory compliance:** ALL tasks > 3 seconds use sub-agents
+
+**Self-monitoring:**
+- Log sub-agent spawns
+- Track duration estimates
+- Report sub-agent usage
+
+**Documentation:** See `SUB-AGENT-PROTOCOL.md` for full details

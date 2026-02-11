@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legiit Automation - Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #444;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+
+        .api-info {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .api-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .api-info code {
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .api-key-display {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+            color: #475569;
+            display: none;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 25px 0;
+        }
+
+        .section-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Legiit Automation Setup</h1>
+        <p class="subtitle">Configure your credentials and API settings</p>
+
+        <div id="status" class="status"></div>
+
+        <form id="setupForm">
+            <!-- Legiit Credentials -->
+            <h3 class="section-title">Legiit Account</h3>
+
+            <div class="form-group">
+                <label for="email">Legiit Email</label>
+                <input type="text" id="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Legiit Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- API Configuration -->
+            <h3 class="section-title">API Settings</h3>
+
+            <div class="form-group">
+                <label for="port">Server Port</label>
+                <input type="number" id="port" value="3000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apiKey">API Key (leave empty to auto-generate)</label>
+                <input type="text" id="apiKey" placeholder="Auto-generate secure key">
+            </div>
+
+            <div class="form-group">
+                <label for="headless">
+                    <input type="checkbox" id="headless" checked>
+                    Run browser in background (headless mode)
+                </label>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Actions -->
+            <button type="submit" class="btn btn-primary">💾 Save Configuration</button>
+            <button type="button" id="startServer" class="btn btn-success" style="display: none;">🚀 Start Server</button>
+            <button type="button" id="stopServer" class="btn btn-secondary" style="display: none;">⏹️ Stop Server</button>
+        </form>
+
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Processing...</p>
+        </div>
+
+        <!-- API Info (shown after server starts) -->
+        <div id="apiInfo" class="api-info" style="display: none;">
+            <h3>✅ Server is Running!</h3>
+            <p><strong>Endpoint:</strong> <code>POST http://localhost:<span id="apiPort">3000</span>/api/purchase-citation</code></p>
+
+            <div class="api-key-display" id="apiKeyDisplay"></div>
+
+            <div class="divider"></div>
+
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px;"><strong>Request Body:</strong></p>
+            <pre style="background: #f1f5f9; padding: 15px; border-radius: 8px; font-size: 12px; overflow-x: auto;">{
+  "domain": "mybusiness.com",
+  "businessName": "My Business LLC",
+  "address": "123 Main St, New York, NY 10001"
+}</pre>
+
+            <p style="color: #666; font-size: 13px; margin-top: 15px;">
+                <strong>Header:</strong> <code>X-API-Key: your_api_key</code>
+            </p>
+        </div>
+
+        <!-- Test Form -->
+        <div id="testSection" style="display: none; margin-top: 20px;">
+            <div class="divider"></div>
+            <h3 class="section-title">🧪 Test the API</h3>
+
+            <div class="form-group">
+                <label for="testDomain">Domain</label>
+                <input type="text" id="testDomain" placeholder="testbusiness.com">
+            </div>
+
+            <div class="form-group">
+                <label for="testBusinessName">Business Name</label>
+                <input type="text" id="testBusinessName" placeholder="Test Business LLC">
+            </div>
+
+            <div class="form-group">
+                <label for="testAddress">Address</label>
+                <input type="text" id="testAddress" placeholder="123 Test St, City, ST 12345">
+            </div>
+
+            <button type="button" id="testApi" class="btn btn-primary">🧪 Test Purchase</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('setupForm');
+        const status = document.getElementById('status');
+        const loader = document.getElementById('loader');
+        const apiInfo = document.getElementById('apiInfo');
+        const apiKeyDisplay = document.getElementById('apiKeyDisplay');
+        const startBtn = document.getElementById('startServer');
+        const stopBtn = document.getElementById('stopServer');
+        const testSection = document.getElementById('testSection');
+
+        // Show status message
+        function showStatus(message, type = 'info') {
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show loader
+        function showLoader(show = true) {
+            loader.style.display = show ? 'block' : 'none';
+        }
+
+        // Generate random API key
+        function generateApiKey() {
+            return Array.from(crypto.getRandomValues(new Uint8Array(32)))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showLoader(true);
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const port = document.getElementById('port').value;
+            let apiKey = document.getElementById('apiKey').value;
+
+            if (!apiKey) {
+                apiKey = generateApiKey();
+            }
+
+            try {
+                const response = await fetch('/api/setup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, port, apiKey })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('✅ Configuration saved successfully!', 'success');
+                    startBtn.style.display = 'block';
+                } else {
+                    showStatus('❌ ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Failed to save configuration: ' + error.message, 'error');
+            } finally {
+                showLoader(false);
+            }
+        });
+
+        // Start server
+        startBtn.addEventListener('click', async () => {
+            showLoader(true);
+
+            try {
+                const response = await fetch('/api/server/start', { method: 'POST' });
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('✅ Server started successfully!', 'success');
+                    startBtn.style.display = 'none';
+                    stopBtn.style.display = 'block';
+                    apiInfo.style.display = 'block';
+                    testSection.style.display = 'block';
+
+                    // Display API info
+                    document.getElementById('apiPort').textContent = result.port;
+                    apiKeyDisplay.textContent = `API Key: ${result.apiKey}`;
+                    apiKeyDisplay.style.display = 'block';
+                } else {
+                    showStatus('❌ Failed to start server: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Error: ' + error.message, 'error');
+            } finally {
+                showLoader(false);
+            }
+        });
+
+        // Stop server
+        stopBtn.addEventListener('click', async () => {
+            showLoader(true);
+
+            try {
+                const response = await fetch('/api/server/stop', { method: 'POST' });
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('✅ Server stopped', 'success');
+                    startBtn.style.display = 'block';
+                    stopBtn.style.display = 'none';
+                    apiInfo.style.display = 'none';
+                    testSection.style.display = 'none';
+                } else {
+                    showStatus('❌ Failed to stop server', 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Error: ' + error.message, 'error');
+            } finally {
+                showLoader(false);
+            }
+        });
+
+        // Test API
+        document.getElementById('testApi').addEventListener('click', async () => {
+            const domain = document.getElementById('testDomain').value;
+            const businessName = document.getElementById('testBusinessName').value;
+            const address = document.getElementById('testAddress').value;
+
+            if (!domain || !businessName || !address) {
+                showStatus('❌ Please fill in all test fields', 'error');
+                return;
+            }
+
+            showLoader(true);
+
+            try {
+                const port = document.getElementById('port').value;
+                const response = await fetch(`http://localhost:${port}/api/purchase-citation`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': document.getElementById('apiKey').value || generateApiKey()
+                    },
+                    body: JSON.stringify({ domain, businessName, address })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus(`✅ Test successful! Order ID: ${result.orderId}`, 'success');
+                } else {
+                    showStatus('❌ Test failed: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Error: ' + error.message, 'error');
+            } finally {
+                showLoader(false);
+            }
+        });
+    </script>
+</body>
+</html>

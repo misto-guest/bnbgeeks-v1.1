@@ -1,0 +1,16 @@
+{
+  "name": "brand-mention-generator-backend",
+  "version": "1.0.0",
+  "description": "API server for Brand Mention Generator - mrkortingscode.nl",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "search": "ts-node scripts/search-portal.ts"
+  },
+  "keywords": ["seo", "brand-mentions", "automation"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

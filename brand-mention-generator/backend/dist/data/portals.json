@@ -1,0 +1,26 @@
+{
+  "portals": [
+    {
+      "id": "telegraaf",
+      "name": "De Telegraaf",
+      "url": "https://www.telegraaf.nl",
+      "search_url": "https://www.telegraaf.nl/zoeken/?q={query}",
+      "type": "news",
+      "authority": "very-high",
+      "language": "nl",
+      "active": true,
+      "discovered_at": "2026-02-09T19:16:15.228Z"
+    },
+    {
+      "id": "bibliotheek-kennemerwaard",
+      "name": "Bibliotheek Kennemerwaard",
+      "url": "https://www.bibliotheekkennemerwaard.nl",
+      "search_url": "https://www.bibliotheekkennemerwaard.nl/zoeken?q={query}",
+      "type": "library",
+      "authority": "medium",
+      "language": "nl",
+      "active": true,
+      "discovered_at": "2026-02-09T19:16:15.228Z"
+    }
+  ]
+}

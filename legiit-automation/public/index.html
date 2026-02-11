@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legiit Automation - Purchase Citations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎯 Legiit Automation</h1>
+            <p class="subtitle">Automated Citation Purchase System</p>
+        </header>
+
+        <!-- Status Banner -->
+        <div id="statusBanner" class="status-banner hidden">
+            <div class="status-icon" id="statusIcon"></div>
+            <div class="status-content">
+                <div class="status-title" id="statusTitle"></div>
+                <div class="status-message" id="statusMessage"></div>
+            </div>
+        </div>
+
+        <!-- Main Form -->
+        <div class="card">
+            <h2>📝 Purchase Details</h2>
+            <form id="purchaseForm">
+                <div class="form-group">
+                    <label for="domain">
+                        <span class="label-icon">🌐</span>
+                        Domain Name
+                    </label>
+                    <input
+                        type="text"
+                        id="domain"
+                        name="domain"
+                        placeholder="example.com"
+                        required
+                        autocomplete="off"
+                    >
+                    <small>Enter your business domain (without https://)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessName">
+                        <span class="label-icon">🏢</span>
+                        Business Name
+                    </label>
+                    <input
+                        type="text"
+                        id="businessName"
+                        name="businessName"
+                        placeholder="My Business LLC"
+                        required
+                        autocomplete="off"
+                    >
+                    <small>Official business name for citations</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">
+                        <span class="label-icon">📍</span>
+                        Business Address
+                    </label>
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="3"
+                        placeholder="123 Main St, City, State 12345"
+                        required
+                        autocomplete="off"
+                    ></textarea>
+                    <small>Full business address for local citations</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="package">
+                        <span class="label-icon">📦</span>
+                        Package Type
+                    </label>
+                    <select id="package" name="package">
+                        <option value="standard">Standard Package (Recommended)</option>
+                        <option value="premium">Premium Package</option>
+                        <option value="basic">Basic Package</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <span class="btn-text">Purchase Citations</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Progress Section -->
+        <div id="progressSection" class="card hidden">
+            <h2>⚙️ Processing Your Order</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Initializing...</div>
+            </div>
+            <div class="steps-log" id="stepsLog"></div>
+        </div>
+
+        <!-- Result Section -->
+        <div id="resultSection" class="card hidden">
+            <h2>✅ Order Complete!</h2>
+            <div class="result-content">
+                <div class="result-item">
+                    <span class="result-label">Order ID:</span>
+                    <span class="result-value" id="orderId"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Request ID:</span>
+                    <span class="result-value" id="requestId"></span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Status:</span>
+                    <span class="result-value success">Success</span>
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="resetForm()">Place Another Order</button>
+        </div>
+
+        <!-- API Info -->
+        <div class="card api-info">
+            <h2>🔌 API Access</h2>
+            <p>You can also use this automation via API:</p>
+            <div class="code-block">
+                <code id="apiEndpoint">http://localhost:3000</code>
+            </div>
+            <div class="api-endpoints">
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/health</code>
+                    <span class="desc">Health check</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/purchase/standard</code>
+                    <span class="desc">Quick purchase</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/purchase</code>
+                    <span class="desc">Custom purchase</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by Puppeteer • Express.js API</p>
+            <p class="small">Make sure your .env file is configured with Legiit credentials</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
