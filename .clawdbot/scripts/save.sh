@@ -108,7 +108,8 @@ if echo "$CHANGES" | grep -q "bnbgeeks"; then
     COMMIT_MSG="$COMMIT_MSG [bnbgeeks]"
 fi
 
-git add .
+# Use -A to stage all changes including nested git repos
+git add -A
 git commit -m "$COMMIT_MSG"
 echo "  → Committed: $COMMIT_MSG"
 echo ""
