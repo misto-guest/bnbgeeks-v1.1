@@ -1,0 +1,22 @@
+services:
+  # SEO Query Manager Web Service
+  - type: web
+    name: seo-query-manager
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 4 --access-logfile - --error-logfile -
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: PORT
+        value: 5001
+    autoDeploy: true
+    
+# Health Check for the service
+healthCheckPath: /api/status
+
+# Environment variables (configure these in the Render dashboard)
+# Required:
+#   - SERPER_API_KEY: Your Serper.dev API key
+#   - SECRET_KEY: Flask secret key (auto-generated if not set)
+#   - API_KEY: API key for authentication (default: seo-query-manager-key)

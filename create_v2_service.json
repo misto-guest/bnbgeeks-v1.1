@@ -1,0 +1,11 @@
+{
+  "operationName": "CreateNewService",
+  "query": "mutation($input: ServiceCreateInput!) { serviceCreate(input: $input) { id name } }",
+  "variables": {
+    "input": {
+      "projectId": "304d57d9-0378-4065-91ad-140105e7071c",
+      "name": "bol-outreach-v2",
+      "repo": "misto-guest/bol-outreach"
+    }
+  }
+}

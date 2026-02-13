@@ -1,0 +1,20 @@
+query($id: ID!) {
+  project(id: $id) {
+    services {
+      edges {
+        node {
+          id
+          name
+          domains {
+            edges {
+              node {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

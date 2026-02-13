@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs - SEO Query Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🔍</span>
+                <span class="brand-name">SEO Query Manager</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/queries">Queries</a></li>
+                <li><a href="/results">Results</a></li>
+                <li><a href="/logs" class="active">Logs</a></li>
+                <li><a href="/settings">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Activity Logs</h1>
+            <button onclick="loadLogs()" class="btn btn-secondary">🔄 Refresh</button>
+        </div>
+
+        <!-- Logs -->
+        <div class="card">
+            <div class="card-body">
+                <div id="logsList" class="logs-list-full">
+                    <p class="loading">Loading logs...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLogs();
+        });
+
+        async function loadLogs() {
+            try {
+                const data = await api.get('/api/logs?limit=100');
+                const logs = data.logs;
+                
+                if (logs.length === 0) {
+                    document.getElementById('logsList').innerHTML = `
+                        <p class="empty-state">No logs yet</p>
+                    `;
+                    return;
+                }
+                
+                const html = logs.map(log => {
+                    const statusClass = log.status === 'completed' ? 'status-success' : 
+                                        log.status === 'error' ? 'status-error' : 'status-running';
+                    const statusIcon = log.status === 'completed' ? '✅' : 
+                                     log.status === 'error' ? '❌' : '🔄';
+                    
+                    return `
+                        <div class="log-item-full">
+                            <div class="log-status ${statusClass}">${statusIcon}</div>
+                            <div class="log-content-full">
+                                <div class="log-header">
+                                    <span class="log-type">${log.run_type}</span>
+                                    <span class="log-time">${formatDateTime(log.started_at)}</span>
+                                </div>
+                                ${log.query ? `<div class="log-query">${escapeHtml(log.query)}</div>` : ''}
+                                ${log.message ? `<div class="log-message">${escapeHtml(log.message)}</div>` : ''}
+                                ${log.error ? `<div class="log-error">${escapeHtml(log.error)}</div>` : ''}
+                                ${log.duration_seconds ? `<div class="log-duration">${log.duration_seconds.toFixed(2)}s</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                document.getElementById('logsList').innerHTML = html;
+                
+            } catch (error) {
+                console.error('Failed to load logs:', error);
+                document.getElementById('logsList').innerHTML = `
+                    <p class="error">Failed to load logs: ${error.message}</p>
+                `;
+            }
+        }
+
+        function formatDateTime(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleString();
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

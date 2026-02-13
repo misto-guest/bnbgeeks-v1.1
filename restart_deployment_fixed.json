@@ -1,0 +1,7 @@
+{
+  "operationName": "RestartDeployment",
+  "query": "mutation RestartDeployment($id: String!) { deploymentRestart(id: $id) }",
+  "variables": {
+    "id": "1ecd2c73-f745-4d1e-9672-1f08dfd8a9b6"
+  }
+}

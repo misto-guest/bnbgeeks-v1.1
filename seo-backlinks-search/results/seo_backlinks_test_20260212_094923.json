@@ -1,0 +1,11 @@
+{
+  "query": "seo backlinks test",
+  "scraped_at": "2026-02-12T09:49:23.963742",
+  "region": "us",
+  "pages_requested": 1,
+  "pages_scraped": 1,
+  "total_results": 10,
+  "new_results": 0,
+  "duplicate_results": 10,
+  "results": []
+}

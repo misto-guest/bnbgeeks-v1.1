@@ -1,0 +1,3 @@
+{
+  "query": "mutation{projectServiceRestart(projectId:\"304d57d9-0378-4065-91ad-140105e7071c\",serviceId:\"SERVICE_ID\"){id}}"
+}

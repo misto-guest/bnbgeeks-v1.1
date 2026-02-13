@@ -1,0 +1,6 @@
+{
+  "buildCommand": "echo 'No build required'",
+  "outputDirectory": ".",
+  "framework": null,
+  "devCommand": "echo 'No dev command configured'"
+}

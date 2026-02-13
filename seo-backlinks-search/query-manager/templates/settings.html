@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - SEO Query Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🔍</span>
+                <span class="brand-name">SEO Query Manager</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/queries">Queries</a></li>
+                <li><a href="/results">Results</a></li>
+                <li><a href="/logs">Logs</a></li>
+                <li><a href="/settings" class="active">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Settings</h1>
+        </div>
+
+        <!-- API Key -->
+        <div class="card">
+            <div class="card-header">
+                <h2>API Key</h2>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Current API Key</label>
+                    <div class="api-key-display">
+                        <code id="apiKeyDisplay">seo-query-manager-key</code>
+                        <button onclick="copyApiKey()" class="btn btn-sm btn-outline">📋 Copy</button>
+                    </div>
+                    <small>
+                        Use this key for API authentication: 
+                        <code>X-API-Key: seo-query-manager-key</code> header or 
+                        <code>?api_key=seo-query-manager-key</code> parameter
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scheduler Setup -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Scheduler Setup</h2>
+            </div>
+            <div class="card-body">
+                <p>To enable automatic scraping, add these cron entries:</p>
+                
+                <div class="cron-entries">
+                    <div class="cron-entry">
+                        <strong>Daily (every day at 2 AM):</strong>
+                        <pre><code>0 2 * * * cd /Users/northsea/clawd-dmitry/seo-backlinks-search/query-manager && python3 scheduler.py daily >> logs/cron.log 2>&1</code></pre>
+                    </div>
+                    
+                    <div class="cron-entry">
+                        <strong>Weekly (every Monday at 2 AM):</strong>
+                        <pre><code>0 2 * * 1 cd /Users/northsea/clawd-dmitry/seo-backlinks-search/query-manager && python3 scheduler.py weekly >> logs/cron.log 2>&1</code></pre>
+                    </div>
+                    
+                    <div class="cron-entry">
+                        <strong>Monthly (1st of each month at 2 AM):</strong>
+                        <pre><code>0 2 1 * * cd /Users/northsea/clawd-dmitry/seo-backlinks-search/query-manager && python3 scheduler.py monthly >> logs/cron.log 2>&1</code></pre>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>💡 Quick Setup:</strong>
+                    <code>crontab -e</code> and paste the entries above
+                </div>
+            </div>
+        </div>
+
+        <!-- Environment Variables -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Environment Variables</h2>
+            </div>
+            <div class="card-body">
+                <p>Create a <code>.env</code> file in the query-manager directory:</p>
+                <pre><code>SERPER_API_KEY=your_serper_api_key_here
+SECRET_KEY=your_secret_key_here
+API_KEY=seo-query-manager-key</code></pre>
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="card">
+            <div class="card-header">
+                <h2>API Documentation</h2>
+            </div>
+            <div class="card-body">
+                <h3>Authentication</h3>
+                <p>All API endpoints require authentication via API key:</p>
+                <pre><code># Header
+X-API-Key: seo-query-manager-key
+
+# Or query parameter
+?api_key=seo-query-manager-key</code></pre>
+
+                <h3>Endpoints</h3>
+                <div class="api-endpoints">
+                    <div class="endpoint">
+                        <code class="method method-get">GET</code>
+                        <code>/api/queries</code>
+                        <span>List all queries</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-post">POST</code>
+                        <code>/api/queries</code>
+                        <span>Add new query</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-get">GET</code>
+                        <code>/api/results/{query_id}</code>
+                        <span>Get latest results</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-get">GET</code>
+                        <code>/api/results/{query_id}/all</code>
+                        <span>Get all historical results</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-post">POST</code>
+                        <code>/api/results/{query_id}/run</code>
+                        <span>Run scrape manually</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-get">GET</code>
+                        <code>/api/export/{query_id}?format=json|csv</code>
+                        <span>Export results</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-get">GET</code>
+                        <code>/api/logs</code>
+                        <span>Get recent logs</span>
+                    </div>
+                    <div class="endpoint">
+                        <code class="method method-get">GET</code>
+                        <code>/api/status</code>
+                        <span>Get system status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function copyApiKey() {
+            const apiKey = document.getElementById('apiKeyDisplay').textContent;
+            navigator.clipboard.writeText(apiKey).then(() => {
+                alert('API key copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>

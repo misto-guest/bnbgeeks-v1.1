@@ -1,0 +1,4 @@
+{
+  "query": "query{projects{edges{node{id name}}}}",
+  "variables": {}
+}

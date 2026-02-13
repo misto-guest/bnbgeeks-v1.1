@@ -1,0 +1,163 @@
+./bnbgeeks-REBRAND-DETAILED.md:3. We launch campaign
+./campaign_workflow.py:    """Manage campaign status transitions"""
+./campaign_workflow.py:            current_status: Current campaign status
+./campaign_workflow.py:        campaign_id: str,
+./campaign_workflow.py:        Transition campaign to new status
+./campaign_workflow.py:            campaign_id: Campaign ID
+./campaign_workflow.py:        cursor.execute('SELECT status FROM campaigns WHERE id = ?', (campaign_id,))
+./campaign_workflow.py:                UPDATE campaigns
+./campaign_workflow.py:            params = (new_status, now, now, campaign_id)
+./campaign_workflow.py:                UPDATE campaigns
+./campaign_workflow.py:            params = (new_status, cooldown_until, campaign_id)
+./campaign_workflow.py:                UPDATE campaigns
+./campaign_workflow.py:            params = (new_status, now, campaign_id)
+./campaign_workflow.py:                UPDATE campaigns
+./campaign_workflow.py:            params = (new_status, error_message or "Unknown error", campaign_id)
+./campaign_workflow.py:        logger.info(f"Campaign {campaign_id}: {current_status} → {new_status}")
+./campaign_workflow.py:    def check_cooldown_complete(self, campaign_id: str) -> bool:
+./campaign_workflow.py:            campaign_id: Campaign ID
+./campaign_workflow.py:            FROM campaigns
+./campaign_workflow.py:        ''', (campaign_id,))
+./campaign_workflow.py:    def auto_advance_cooldown(self, campaign_id: str) -> Tuple[bool, str]:
+./campaign_workflow.py:        Auto-advance campaign from cooldown to completed
+./campaign_workflow.py:            campaign_id: Campaign ID
+./campaign_workflow.py:        if not self.check_cooldown_complete(campaign_id):
+./campaign_workflow.py:        return self.transition_status(campaign_id, CampaignStatus.COMPLETED.value)
+./campaign_workflow.py:        Get summary of campaigns by status
+./campaign_workflow.py:                FROM campaigns
+./campaign_workflow.py:                FROM campaigns
+./campaign_workflow.py:    def get_queued_campaigns(self, limit: int = 10) -> list:
+./campaign_workflow.py:        Get queued campaigns ready to process
+./campaign_workflow.py:            List of campaign dicts
+./campaign_workflow.py:            SELECT * FROM campaigns
+./campaign_workflow.py:        campaigns = [dict(row) for row in cursor.fetchall()]
+./campaign_workflow.py:        return campaigns
+./campaign_workflow.py:    def get_processing_campaigns(self) -> list:
+./campaign_workflow.py:        """Get all currently processing campaigns"""
+./campaign_workflow.py:            SELECT * FROM campaigns
+./campaign_workflow.py:        campaigns = [dict(row) for row in cursor.fetchall()]
+./campaign_workflow.py:        return campaigns
+./campaign_workflow.py:    def get_cooldown_campaigns(self) -> list:
+./campaign_workflow.py:        """Get campaigns in cooldown period"""
+./campaign_workflow.py:            SELECT * FROM campaigns
+./campaign_workflow.py:        campaigns = [dict(row) for row in cursor.fetchall()]
+./campaign_workflow.py:        return campaigns
+./campaign_workflow.py:        Fail campaigns that have been processing too long
+./campaign_workflow.py:            Number of campaigns failed
+./campaign_workflow.py:            UPDATE campaigns
+./campaign_workflow.py:            logger.warning(f"Failed {failed_count} stuck processing campaigns")
+./campaign_workflow.py:    # Update campaigns table with new columns
+./campaign_workflow.py:            ALTER TABLE campaigns
+./campaign_workflow.py:        logger.info("Added status column to campaigns")
+./campaign_workflow.py:            ALTER TABLE campaigns
+./campaign_workflow.py:            ALTER TABLE campaigns
+./campaign_workflow.py:            ALTER TABLE campaigns
+./campaign_workflow.py:    # Update existing campaigns to 'queued' if status is 'pending'
+./campaign_workflow.py:        UPDATE campaigns
+./campaign_workflow.py:        CREATE INDEX IF NOT EXISTS idx_campaigns_status
+./campaign_workflow.py:        ON campaigns(status)
+./campaign_workflow.py:        CREATE INDEX IF NOT EXISTS idx_campaigns_queued_at
+./campaign_workflow.py:        ON campaigns(queued_at)
+./campaign_workflow.py:        CREATE INDEX IF NOT EXISTS idx_campaigns_processing_at
+./campaign_workflow.py:        ON campaigns(processing_at)
+./GPS-API.md:Get dashboard statistics including total campaigns, completed, running, and success rate.
+./GPS-API.md:  "total_campaigns": 150,
+./GPS-API.md:- `total_campaigns` (integer): Total number of campaigns
+./GPS-API.md:- `completed` (integer): Number of completed campaigns
+./GPS-API.md:- `running` (integer): Number of currently running campaigns
+./GPS-API.md:Get list of active campaigns (pending or running status).
+./GPS-API.md:GET /api/campaigns/active
+./GPS-API.md:- `id` (string): Unique campaign identifier
+./GPS-API.md:Create a new GPS spoofing campaign.
+./GPS-API.md:POST /api/campaigns
+./GPS-API.md:  "campaign_id": "48c940cd",
+./GPS-API.md:Start a pending campaign.
+./GPS-API.md:POST /api/campaigns/{campaign_id}/start
+./GPS-API.md:- `campaign_id` (string, required): Campaign ID
+./GPS-API.md:  "event": "campaign_started",
+./GPS-API.md:    "campaign_id": "48c940cd"
+./GPS-API.md:Delete a campaign and its logs.
+./GPS-API.md:DELETE /api/campaigns/{campaign_id}
+./GPS-API.md:- `campaign_id` (string, required): Campaign ID
+./GPS-API.md:socket.on('campaign_created', (data) => {
+./GPS-API.md:  console.log('New campaign:', data.campaign_id);
+./GPS-API.md:  "campaign_id": "48c940cd",
+./GPS-API.md:socket.on('campaign_started', (data) => {
+./GPS-API.md:  console.log('Campaign started:', data.campaign_id);
+./GPS-API.md:  "campaign_id": "48c940cd"
+./GPS-API.md:socket.on('campaign_progress', (data) => {
+./GPS-API.md:  "campaign_id": "48c940cd",
+./GPS-API.md:socket.on('campaign_completed', (data) => {
+./GPS-API.md:  console.log('Campaign completed:', data.campaign_id);
+./GPS-API.md:  "campaign_id": "48c940cd",
+./GPS-API.md:url = "http://localhost:5002/api/campaigns"
+./GPS-API.md:# Output: {'success': True, 'campaign_id': '48c940cd', 'message': 'Campaign created successfully'}
+./GPS-API.md:campaign_id = "48c940cd"
+./GPS-API.md:url = f"http://localhost:5002/api/campaigns/{campaign_id}/start"
+./GPS-API.md:print(f"Total campaigns: {stats['total_campaigns']}")
+./GPS-API.md:const response = await fetch('http://localhost:5002/api/campaigns', {
+./GPS-API.md:// Output: {success: true, campaign_id: "48c940cd", message: "Campaign created successfully"}
+./GPS-API.md:socket.on('campaign_created', (data) => {
+./GPS-API.md:  console.log('New campaign created:', data.campaign_id);
+./GPS-API.md:  alert('New campaign: ' + data.name);
+./GPS-API.md:socket.on('campaign_progress', (data) => {
+./GPS-API.md:curl -X POST http://localhost:5002/api/campaigns \
+./GPS-API.md:  "campaign_id": "48c940cd",
+./GPS-API.md:curl -X POST http://localhost:5002/api/campaigns/48c940cd/start
+./GPS-API.md:curl -X DELETE http://localhost:5002/api/campaigns/48c940cd
+./GPS-API.md:- 10 requests per minute for campaign creation
+./GPS-API.md:    # Create campaign
+./GPS-API.md:    response = requests.post('http://localhost:5002/api/campaigns', json={
+./GPS-API.md:    campaign_id = response.json()['campaign_id']
+./GPS-API.md:    # Start campaign
+./GPS-API.md:    response = requests.post(f'http://localhost:5002/api/campaigns/{campaign_id}/start')
+./auth.py:SECRET_KEY = "gps-campaign-manager-secret-key-change-in-production"
+./auth.py:    cursor.execute('CREATE INDEX IF NOT EXISTS idx_campaigns_user_id ON campaigns(user_id)')
+./GPS-ANDROID-MULTIUSER.md:def run_campaign_with_gps(campaign_id, android_controller):
+./GPS-ANDROID-MULTIUSER.md:    Run a campaign with real Android GPS spoofing
+./GPS-ANDROID-MULTIUSER.md:        # Get campaign details
+./GPS-ANDROID-MULTIUSER.md:            SELECT * FROM campaigns WHERE id = ?
+./GPS-ANDROID-MULTIUSER.md:        ''', (campaign_id,))
+./GPS-ANDROID-MULTIUSER.md:        campaign = dict(cursor.fetchone())
+./GPS-ANDROID-MULTIUSER.md:        # Define campaign steps
+./GPS-ANDROID-MULTIUSER.md:            'Finalizing campaign...'
+./GPS-ANDROID-MULTIUSER.md:            if not campaign['status'] == 'running':
+./GPS-ANDROID-MULTIUSER.md:                UPDATE campaigns
+./GPS-ANDROID-MULTIUSER.md:            ''', (step, progress, campaign_id))
+./GPS-ANDROID-MULTIUSER.md:            socketio.emit('campaign_progress', {
+./GPS-ANDROID-MULTIUSER.md:                'campaign_id': campaign_id,
+./GPS-ANDROID-MULTIUSER.md:                if campaign['account_mode'] == 'normal':
+./GPS-ANDROID-MULTIUSER.md:                elif campaign['account_mode'] == 'aggressive':
+./GPS-ANDROID-MULTIUSER.md:                if campaign['account_mode'] == 'normal':
+./GPS-ANDROID-MULTIUSER.md:                elif campaign['account_mode'] == 'aggressive':
+./GPS-ANDROID-MULTIUSER.md:                num_points = int(campaign['duration_hours'] * 60 / 2)  # 2-min intervals
+./GPS-ANDROID-MULTIUSER.md:            elif 'Finalizing campaign' in step:
+./GPS-ANDROID-MULTIUSER.md:            UPDATE campaigns
+./GPS-ANDROID-MULTIUSER.md:        ''', (campaign_id,))
+./GPS-ANDROID-MULTIUSER.md:        socketio.emit('campaign_completed', {
+./GPS-ANDROID-MULTIUSER.md:            'campaign_id': campaign_id,
+./GPS-ANDROID-MULTIUSER.md:        logger.info(f"Campaign {campaign_id} completed with GPS spoofing")
+./GPS-ANDROID-MULTIUSER.md:        logger.error(f"Error running campaign {campaign_id}: {str(e)}")
+./GPS-ANDROID-MULTIUSER.md:            UPDATE campaigns
+./GPS-ANDROID-MULTIUSER.md:        ''', (str(e), campaign_id))
+./GPS-ANDROID-MULTIUSER.md:-- Add user_id to campaigns
+./GPS-ANDROID-MULTIUSER.md:ALTER TABLE campaigns ADD COLUMN user_id TEXT;
+./GPS-ANDROID-MULTIUSER.md:ALTER TABLE campaigns ADD COLUMN is_public BOOLEAN DEFAULT FALSE;
+./GPS-ANDROID-MULTIUSER.md:CREATE INDEX idx_campaigns_user_id ON campaigns(user_id);
+./GPS-ANDROID-MULTIUSER.md:CREATE INDEX idx_campaigns_status ON campaigns(status);
+./GPS-ANDROID-MULTIUSER.md:# Update campaign endpoints to use user_id
+./GPS-ANDROID-MULTIUSER.md:@app.route('/api/campaigns', methods=['POST'])
+./GPS-ANDROID-MULTIUSER.md:def create_campaign():
+./GPS-ANDROID-MULTIUSER.md:    """Create a new campaign (authenticated)"""
+./GPS-ANDROID-MULTIUSER.md:        campaign_id = str(uuid.uuid4())[:8]
+./GPS-ANDROID-MULTIUSER.md:            INSERT INTO campaigns (
+./GPS-ANDROID-MULTIUSER.md:            campaign_id,
+./GPS-ANDROID-MULTIUSER.md:        log_audit_action(request.user['user_id'], 'create_campaign', 'campaign', campaign_id)
+./GPS-ANDROID-MULTIUSER.md:        socketio.emit('campaign_created', {
+./GPS-ANDROID-MULTIUSER.md:            'campaign_id': campaign_id,
+./GPS-ANDROID-MULTIUSER.md:            'campaign_id': campaign_id,
+./GPS-ANDROID-MULTIUSER.md:        logger.error(f"Error creating campaign: {str(e)}")
+./GPS-ANDROID-MULTIUSER.md:- [ ] Update campaign creation to use devices
+./GPS-ANDROID-MULTIUSER.md:- [ ] Integrate GPS spoofing in campaign execution
+./GPS-ANDROID-MULTIUSER.md:- [ ] Add user-specific campaign filtering
+./brand-mention-generator/frontend/node_modules/@alloc/quick-lru/readme.md:		<a href="https://tidelift.com/subscription/pkg/npm-quick-lru?utm_source=npm-quick-lru&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>

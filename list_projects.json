@@ -1,0 +1,3 @@
+{
+  "query": "{projects{edges{node{id name}}}}"
+}

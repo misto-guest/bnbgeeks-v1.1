@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Spam Search Results - Coinsnight.com Investigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .query-section {
+            margin-bottom: 50px;
+        }
+
+        .query-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .query-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .result-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+            border-color: #667eea;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
+        .domain {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        .badge {
+            background: #f0f0f0;
+            color: #666;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .badge.query-1 {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge.query-2 {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .result-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .result-url {
+            color: #667eea;
+            font-size: 0.85rem;
+            word-break: break-all;
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .result-url:hover {
+            text-decoration: underline;
+        }
+
+        .result-note {
+            background: #fff9e6;
+            border-left: 3px solid #ffc107;
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .warning-banner {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: start;
+        }
+
+        .warning-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .warning-content h3 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .warning-content p {
+            color: #856404;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .result-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 SEO Spam Investigation</h1>
+            <p>Analysis of search results for Coinsnight.com promotional queries across web platforms</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number" id="totalResults">0</span>
+                    <span class="stat-label">Total Results</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="query1Count">0</span>
+                    <span class="stat-label">Query 1</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="query2Count">0</span>
+                    <span class="stat-label">Query 2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="warning-banner">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-content">
+                    <h3>SEO Spam Campaign Detected</h3>
+                    <p>The queries below appear to be part of an aggressive SEO spam campaign. The promotional text is being injected into search result pages of unrelated websites (e-commerce sites, government websites, educational institutions) to manipulate search engine rankings. This technique often violates search engine guidelines and may indicate low-quality or scam services.</p>
+                </div>
+            </div>
+
+            <div class="query-section">
+                <div class="query-title">
+                    Query 1: Backlinks Indexer Promotion
+                    <span class="query-badge">Backlink SEO</span>
+                </div>
+                <div class="results-grid" id="query1Results"></div>
+            </div>
+
+            <div class="query-section">
+                <div class="query-title">
+                    Query 2: FC Coins Site Promotion
+                    <span class="query-badge">Gaming Coins</span>
+                </div>
+                <div class="results-grid" id="query2Results"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Data extracted from web search results • <span id="timestamp"></span></p>
+            <p>Investigation: Coinsnight.com promotional tactics across unrelated web platforms</p>
+        </div>
+    </div>
+
+    <script>
+        // Data from the JSON file
+        const searchData = [
+            {
+                "domain": "www.cyclemotion.com.au",
+                "title": "Search results for: '[ Coinsnight.com The Best Backlinks Indexer ][ 30% OFF code:Link2023 ]'",
+                "description": "Catalog search result page - query appears to be injected as a search parameter",
+                "url": "https://www.cyclemotion.com.au/catalogsearch/result/?q=%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code%3ALink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears as injected search parameter on e-commerce site"
+            },
+            {
+                "domain": "dealzer.com",
+                "title": "Search Results - Dealzer",
+                "description": "Hydroponics grow box e-commerce site with injected search query",
+                "url": "https://dealzer.com/search.php?search_query=%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code%3ALink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on grow box equipment retailer"
+            },
+            {
+                "domain": "hmhreligious.com",
+                "title": "Catalog Search Results",
+                "description": "Religious products catalog with injected search query",
+                "url": "https://hmhreligious.com/catalogsearch/result/index/?q=%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code%3ALink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on religious products e-commerce site"
+            },
+            {
+                "domain": "www.id-enhancements.com",
+                "title": "Search Results - ID Enhancements",
+                "description": "ID card accessories retailer with injected search query",
+                "url": "https://www.id-enhancements.com/search.php?search_query=%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code%3ALink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on ID products retailer"
+            },
+            {
+                "domain": "www.activegearreview.com",
+                "title": "Search Results - Active Gear Review",
+                "description": "Fitness gear review site with injected search query",
+                "url": "https://www.activegearreview.com/amp/?s=%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code%3ALink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on fitness equipment review site"
+            },
+            {
+                "domain": "www.baycoclerk.com",
+                "title": "Bay County Clerk of Court",
+                "description": "Government website with injected search query",
+                "url": "https://www.baycoclerk.com/search/%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code:Link2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on government clerk of court website"
+            },
+            {
+                "domain": "www.ibeadcanada.com",
+                "title": "Search Results - I Bead Canada",
+                "description": "Jewelry/bead retailer with injected search query",
+                "url": "https://www.ibeadcanada.com/pages/search-results-page?q=%5B+++coinsnight.com+the+best+backlinks+indexer++%5D%5B+++30%25+off+code%3Alink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on bead jewelry retailer"
+            },
+            {
+                "domain": "www.houseplans.net",
+                "title": "House Plans News Search",
+                "description": "House plans website with injected search query",
+                "url": "https://www.houseplans.net/news/?s=%E3%80%90++Coinsnight.com+The+Best+Backlinks+Indexer++%E3%80%91%E3%80%90++30%25+OFF+code%3ALink2023++%E3%80%91",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on house plans website"
+            },
+            {
+                "domain": "verotl.com",
+                "title": "Catalog Search Results",
+                "description": "E-commerce site with injected search query",
+                "url": "https://verotl.com/catalogsearch/result/index/?q=%5B+++Coinsnight.com+The+Best+Backlinks+Indexer++%5D%5B+++30%25+OFF+code%3ALink2023++%5D",
+                "query_matched": "Query 1",
+                "note": "Search result spam - query appears on e-commerce site"
+            },
+            {
+                "domain": "www.youtube.com",
+                "title": "Coin Selling Sites Review - YouTube",
+                "description": "YouTube video warning about coin-selling site scams and fake items",
+                "url": "https://www.youtube.com/watch?v=WFSf1p9KiGo",
+                "query_matched": "Query 2",
+                "note": "Legitimate video warning about coin-selling scams, mentions risks of third-party sites"
+            },
+            {
+                "domain": "flcu.org",
+                "title": "Florida Credit Union Search",
+                "description": "Credit union website with injected FC coins search query",
+                "url": "https://flcu.org/search/?searchtext=selling+fc+coins+reddit+Coinsnight.com+FC+26+coins+30%25+OFF+code%3A+FC2026",
+                "query_matched": "Query 2",
+                "note": "Search result spam - FC coins query appears on credit union website"
+            },
+            {
+                "domain": "www.capecodfive.com",
+                "title": "Cape Cod Five Search",
+                "description": "Bank website with injected FC coins search query",
+                "url": "https://www.capecodfive.com/search?query=26k+fc+points+Coinsnight.com+FC+26+coins+30%25+OFF+code%3A+FC2026",
+                "query_matched": "Query 2",
+                "note": "Search result spam - FC coins query appears on bank website"
+            },
+            {
+                "domain": "deccs.pmddtc.state.gov",
+                "title": "DECCS Search - US State Department",
+                "description": "US Department of State defense trade controls with injected search query",
+                "url": "https://deccs.pmddtc.state.gov/deccs?id=ddtc_search&q=%5B+Best+FC+coins+Site%3A+Coinsnight.com+%5D",
+                "query_matched": "Query 2",
+                "note": "Search result spam - FC coins query appears on US government website"
+            },
+            {
+                "domain": "politicalscience.stanford.edu",
+                "title": "Stanford Political Science Search",
+                "description": "Stanford University website with injected FC coins search query",
+                "url": "https://politicalscience.stanford.edu/search?search=best+way+to+get+coins+fc+26+Coinsnight.com+FC+26+coins+30%25+OFF+code%3A+FC2026",
+                "query_matched": "Query 2",
+                "note": "Search result spam - FC coins query appears on university website"
+            }
+        ];
+
+        // Create result card HTML
+        function createResultCard(result) {
+            const badgeClass = result.query_matched === 'Query 1' ? 'query-1' : 'query-2';
+            return `
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="domain">${result.domain}</div>
+                        <span class="badge ${badgeClass}">${result.query_matched}</span>
+                    </div>
+                    <div class="result-title">${result.title}</div>
+                    <div class="result-description">${result.description}</div>
+                    <a href="${result.url}" target="_blank" rel="noopener noreferrer" class="result-url">
+                        🔗 ${result.url.substring(0, 60)}${result.url.length > 60 ? '...' : ''}
+                    </a>
+                    <div class="result-note">📌 ${result.note}</div>
+                </div>
+            `;
+        }
+
+        // Populate results
+        function populateResults() {
+            const query1Results = searchData.filter(r => r.query_matched === 'Query 1');
+            const query2Results = searchData.filter(r => r.query_matched === 'Query 2');
+
+            document.getElementById('query1Results').innerHTML = query1Results.map(createResultCard).join('');
+            document.getElementById('query2Results').innerHTML = query2Results.map(createResultCard).join('');
+
+            // Update stats
+            document.getElementById('totalResults').textContent = searchData.length;
+            document.getElementById('query1Count').textContent = query1Results.length;
+            document.getElementById('query2Count').textContent = query2Results.length;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            populateResults();
+            document.getElementById('timestamp').textContent = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        });
+    </script>
+</body>
+</html>

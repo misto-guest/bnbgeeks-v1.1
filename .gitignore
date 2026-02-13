@@ -1,2 +1,48 @@
-.vercel
-.env*.local
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Large files
+*.pyc
+__pycache__/
+node_modules/
+.venv/
+venv/
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+.*.swp
+.*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Package files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Session/State
+*.session
+.DS_Store?
+
+# Embedded repositories
+clawd-control/
+gps-spoofing/

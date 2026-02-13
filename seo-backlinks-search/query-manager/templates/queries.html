@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queries - SEO Query Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🔍</span>
+                <span class="brand-name">SEO Query Manager</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/queries" class="active">Queries</a></li>
+                <li><a href="/results">Results</a></li>
+                <li><a href="/logs">Logs</a></li>
+                <li><a href="/settings">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Queries</h1>
+            <button onclick="openModal()" class="btn btn-primary">➕ Add Query</button>
+        </div>
+
+        <!-- Queries List -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Active Queries</h2>
+                <button onclick="loadQueries()" class="btn-icon" title="Refresh">🔄</button>
+            </div>
+            <div class="card-body">
+                <div id="queriesList" class="queries-list">
+                    <p class="loading">Loading queries...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Query Modal -->
+    <div id="queryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Query</h2>
+                <button onclick="closeModal()" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="queryForm">
+                    <input type="hidden" id="queryId">
+                    
+                    <div class="form-group">
+                        <label for="queryText">Search Query *</label>
+                        <input type="text" id="queryText" required
+                               placeholder="e.g., seo link building services">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="schedule">Schedule</label>
+                            <select id="schedule">
+                                <option value="daily">Daily</option>
+                                <option value="weekly" selected>Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="region">Region</label>
+                            <select id="region">
+                                <option value="us" selected>United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="ca">Canada</option>
+                                <option value="au">Australia</option>
+                                <option value="de">Germany</option>
+                                <option value="nl">Netherlands</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maxPages">Pages to Scrape</label>
+                        <input type="number" id="maxPages" min="1" max="10" value="2">
+                        <small>Number of SERP pages to scrape per run (1-10)</small>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" onclick="closeModal()" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Query</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script>
+        let editingQueryId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQueries();
+        });
+
+        document.getElementById('queryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const data = {
+                query: document.getElementById('queryText').value,
+                schedule: document.getElementById('schedule').value,
+                region: document.getElementById('region').value,
+                max_pages: parseInt(document.getElementById('maxPages').value)
+            };
+            
+            try {
+                if (editingQueryId) {
+                    await api.put(`/api/queries/${editingQueryId}`, data);
+                    showNotification('Query updated successfully', 'success');
+                } else {
+                    await api.post('/api/queries', data);
+                    showNotification('Query added successfully', 'success');
+                }
+                
+                closeModal();
+                loadQueries();
+                
+            } catch (error) {
+                showNotification('Failed to save query: ' + error.message, 'error');
+            }
+        });
+
+        async function loadQueries() {
+            try {
+                const data = await api.get('/api/queries');
+                const queries = data.queries;
+                
+                if (queries.length === 0) {
+                    document.getElementById('queriesList').innerHTML = `
+                        <div class="empty-state">
+                            <p>📋 No queries yet</p>
+                            <p>Click "Add Query" to get started</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const html = queries.map(q => `
+                    <div class="query-item">
+                        <div class="query-main">
+                            <div class="query-title">${escapeHtml(q.query)}</div>
+                            <div class="query-meta">
+                                <span class="badge badge-${q.schedule}">${q.schedule}</span>
+                                <span class="badge badge-region">${q.region}</span>
+                                <span class="badge">${q.max_pages} pages</span>
+                            </div>
+                        </div>
+                        <div class="query-actions">
+                            <button onclick="runQuery(${q.id})" class="btn-icon" title="Run now">▶️</button>
+                            <button onclick="editQuery(${q.id})" class="btn-icon" title="Edit">✏️</button>
+                            <button onclick="deleteQuery(${q.id})" class="btn-icon" title="Delete">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('queriesList').innerHTML = html;
+                
+            } catch (error) {
+                console.error('Failed to load queries:', error);
+                document.getElementById('queriesList').innerHTML = `
+                    <p class="error">Failed to load queries: ${error.message}</p>
+                `;
+            }
+        }
+
+        function openModal(query = null) {
+            editingQueryId = null;
+            
+            if (query) {
+                editingQueryId = query.id;
+                document.getElementById('modalTitle').textContent = 'Edit Query';
+                document.getElementById('queryText').value = query.query;
+                document.getElementById('schedule').value = query.schedule;
+                document.getElementById('region').value = query.region;
+                document.getElementById('maxPages').value = query.max_pages;
+            } else {
+                document.getElementById('modalTitle').textContent = 'Add New Query';
+                document.getElementById('queryForm').reset();
+            }
+            
+            document.getElementById('queryModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('queryModal').style.display = 'none';
+            editingQueryId = null;
+        }
+
+        async function editQuery(id) {
+            try {
+                const query = await api.get(`/api/queries/${id}`);
+                openModal(query);
+            } catch (error) {
+                showNotification('Failed to load query: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteQuery(id) {
+            if (!confirm('Are you sure you want to delete this query?')) {
+                return;
+            }
+            
+            try {
+                await api.delete(`/api/queries/${id}`);
+                showNotification('Query deleted successfully', 'success');
+                loadQueries();
+            } catch (error) {
+                showNotification('Failed to delete query: ' + error.message, 'error');
+            }
+        }
+
+        async function runQuery(id) {
+            try {
+                showNotification('Starting scrape...', 'info');
+                const data = await api.post(`/api/results/${id}/run`);
+                showNotification(`✅ Completed: ${data.new_results} new results`, 'success');
+                loadQueries();
+            } catch (error) {
+                showNotification('Failed to run query: ' + error.message, 'error');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Close modal on click outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('queryModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

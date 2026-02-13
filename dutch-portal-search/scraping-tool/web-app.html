@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch Portal Search Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .search-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .progress-section.active {
+            display: block;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .stat-box strong {
+            display: block;
+            font-size: 2em;
+            color: #667eea;
+        }
+
+        .stat-box span {
+            color: #666;
+        }
+
+        .results-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .results-header h2 {
+            color: #333;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .result-item h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+
+        .result-item .link {
+            color: #667eea;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .result-item .snippet {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .result-item .meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .error-section {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-section.active {
+            display: block;
+        }
+
+        .error-section h3 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+
+        .error-section p {
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .results-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔍 Dutch Portal Search Tool</h1>
+            <p>Extract Google search results using Serper.dev API</p>
+        </div>
+
+        <!-- Search Panel -->
+        <div class="search-panel">
+            <div class="input-group">
+                <label>Input Source</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="inputType" value="query" checked> 
+                        Enter Query
+                    </label>
+                    <label>
+                        <input type="radio" name="inputType" value="url"> 
+                        Paste Google URL
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label id="queryLabel">Search Query</label>
+                <input type="text" id="queryInput" placeholder="Enter your search query...">
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Number of Pages</label>
+                    <select id="pagesInput">
+                        <option value="1">1 Page</option>
+                        <option value="2">2 Pages</option>
+                        <option value="3">3 Pages</option>
+                        <option value="5">5 Pages</option>
+                        <option value="10">10 Pages</option>
+                        <option value="20">20 Pages</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Output Format</label>
+                    <select id="formatInput">
+                        <option value="copy">Copy Format</option>
+                        <option value="json">JSON Format</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn" onclick="startSearch()">🚀 Start Search</button>
+                <button class="btn btn-secondary" onclick="copyResults()" id="copyBtn" style="display: none;">📋 Copy Results</button>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section" id="progressSection">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+            <div class="progress-stats">
+                <div class="stat-box">
+                    <strong id="pageStat">0</strong>
+                    <span>Pages Fetched</span>
+                </div>
+                <div class="stat-box">
+                    <strong id="resultStat">0</strong>
+                    <span>Results Found</span>
+                </div>
+                <div class="stat-box">
+                    <strong id="statusStat">⏳</strong>
+                    <span>Status</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Section -->
+        <div class="error-section" id="errorSection">
+            <h3>❌ Error</h3>
+            <p id="errorMessage"></p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2>📊 Search Results</h2>
+                <button class="btn btn-secondary" onclick="copyResults()">📋 Copy to Clipboard</button>
+            </div>
+            <div id="resultsContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'e09ed258e1c8db784354868198bd915e1fb7181d';
+        const API_ENDPOINT = 'https://google.serper.dev/search';
+
+        let allResults = [];
+        let totalPages = 0;
+        let currentQuery = '';
+
+        // Input type toggle handler
+        document.querySelectorAll('input[name="inputType"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const label = document.getElementById('queryLabel');
+                const input = document.getElementById('queryInput');
+                
+                if (e.target.value === 'url') {
+                    label.textContent = 'Google Search URL';
+                    input.placeholder = 'https://google.com/search?q=your+query';
+                } else {
+                    label.textContent = 'Search Query';
+                    input.placeholder = 'Enter your search query...';
+                }
+            });
+        });
+
+        /**
+         * Extract query from Google URL
+         */
+        function extractQueryFromURL(url) {
+            try {
+                const urlObj = new URL(url);
+                return urlObj.searchParams.get('q') || '';
+            } catch (error) {
+                throw new Error('Invalid URL format');
+            }
+        }
+
+        /**
+         * Start the search process
+         */
+        async function startSearch() {
+            // Reset state
+            hideError();
+            hideResults();
+            allResults = [];
+            totalPages = 0;
+
+            // Get input
+            const inputType = document.querySelector('input[name="inputType"]:checked').value;
+            const inputValue = document.getElementById('queryInput').value.trim();
+            const pages = parseInt(document.getElementById('pagesInput').value, 10);
+            const format = document.getElementById('formatInput').value;
+
+            // Validate input
+            if (!inputValue) {
+                showError('Please enter a query or URL');
+                return;
+            }
+
+            // Process query
+            if (inputType === 'url') {
+                try {
+                    currentQuery = extractQueryFromURL(inputValue);
+                    if (!currentQuery) {
+                        showError('Could not extract query from URL');
+                        return;
+                    }
+                } catch (error) {
+                    showError('Invalid URL format');
+                    return;
+                }
+            } else {
+                currentQuery = inputValue;
+            }
+
+            // Show progress
+            showProgress();
+            updateProgress(0, 0, '⏳ Starting...');
+
+            // Fetch results
+            try {
+                for (let page = 1; page <= pages; page++) {
+                    // Update progress
+                    const progress = Math.round(((page - 1) / pages) * 100);
+                    updateProgress(progress, allResults.length, '⏳ Fetching...');
+
+                    // Fetch page
+                    const results = await fetchPage(currentQuery, page);
+                    
+                    if (results.length === 0 && page > 1) {
+                        // No more results
+                        break;
+                    }
+
+                    allResults.push(results);
+                    totalPages = page;
+
+                    // Small delay to respect rate limits
+                    if (page < pages) {
+                        await sleep(100);
+                    }
+                }
+
+                // Complete
+                updateProgress(100, allResults.flat().length, '✅ Complete!');
+
+                // Show results
+                setTimeout(() => {
+                    displayResults(format);
+                }, 500);
+
+            } catch (error) {
+                hideProgress();
+                showError(`Search failed: ${error.message}`);
+            }
+        }
+
+        /**
+         * Fetch a single page from Serper.dev
+         */
+        async function fetchPage(query, pageNum) {
+            const params = new URLSearchParams({
+                q: query,
+                page: pageNum.toString()
+            });
+
+            const response = await fetch(`${API_ENDPOINT}?${params}`, {
+                method: 'GET',
+                headers: {
+                    'X-API-KEY': API_KEY,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return extractOrganicResults(data);
+        }
+
+        /**
+         * Extract organic results from API response
+         */
+        function extractOrganicResults(data) {
+            if (!data.organic) {
+                return [];
+            }
+
+            return data.organic.map(result => ({
+                title: result.title || '',
+                link: result.link || '',
+                snippet: result.snippet || '',
+                position: result.position || 0,
+                page: Math.ceil((result.position || 1) / 10) // Estimate page
+            }));
+        }
+
+        /**
+         * Display results in the UI
+         */
+        function displayResults(format) {
+            const content = document.getElementById('resultsContent');
+            const flatResults = allResults.flat();
+            
+            if (format === 'json') {
+                // JSON format
+                const jsonOutput = JSON.stringify({
+                    query: currentQuery,
+                    totalResults: flatResults.length,
+                    timestamp: new Date().toISOString(),
+                    results: flatResults
+                }, null, 2);
+
+                content.innerHTML = `<pre style="background: #f8f9fa; padding: 20px; border-radius: 5px; overflow-x: auto;">${escapeHtml(jsonOutput)}</pre>`;
+            } else {
+                // Copy format
+                let html = `<div style="background: #f8f9fa; padding: 20px; border-radius: 5px; white-space: pre-wrap; font-family: monospace;">`;
+                html += `Query: ${escapeHtml(currentQuery)}\n`;
+                html += `Total Results: ${flatResults.length}\n`;
+                html += `${'='.repeat(50)}\n\n`;
+
+                allResults.forEach((pageResults, pageNum) => {
+                    if (pageResults.length > 0) {
+                        html += `[Page ${pageNum + 1}]\n\n`;
+                        
+                        pageResults.forEach((result, idx) => {
+                            html += `${idx + 1}. ${escapeHtml(result.title)}\n`;
+                            html += `   Link: ${escapeHtml(result.link)}\n`;
+                            html += `   Snippet: ${escapeHtml(result.snippet)}\n\n`;
+                        });
+                    }
+                });
+
+                html += `</div>`;
+                content.innerHTML = html;
+            }
+
+            showResults();
+        }
+
+        /**
+         * Copy results to clipboard
+         */
+        async function copyResults() {
+            const flatResults = allResults.flat();
+            
+            if (flatResults.length === 0) {
+                return;
+            }
+
+            let text = `Query: ${currentQuery}\n`;
+            text += `Total Results: ${flatResults.length}\n`;
+            text += `${'='.repeat(50)}\n\n`;
+
+            allResults.forEach((pageResults, pageNum) => {
+                if (pageResults.length > 0) {
+                    text += `[Page ${pageNum + 1}]\n\n`;
+                    
+                    pageResults.forEach((result, idx) => {
+                        text += `${idx + 1}. ${result.title}\n`;
+                        text += `   Link: ${result.link}\n`;
+                        text += `   Snippet: ${result.snippet}\n\n`;
+                    });
+                }
+            });
+
+            try {
+                await navigator.clipboard.writeText(text);
+                alert('✅ Results copied to clipboard!');
+            } catch (error) {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('✅ Results copied to clipboard!');
+            }
+        }
+
+        /**
+         * Update progress indicators
+         */
+        function updateProgress(percent, results, status) {
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            document.getElementById('progressBar').textContent = `${percent}%`;
+            document.getElementById('pageStat').textContent = totalPages;
+            document.getElementById('resultStat').textContent = results;
+            document.getElementById('statusStat').textContent = status;
+        }
+
+        /**
+         * Show/hide sections
+         */
+        function showProgress() {
+            document.getElementById('progressSection').classList.add('active');
+            document.getElementById('copyBtn').style.display = 'none';
+        }
+
+        function hideProgress() {
+            document.getElementById('progressSection').classList.remove('active');
+        }
+
+        function showResults() {
+            document.getElementById('resultsSection').classList.add('active');
+            document.getElementById('copyBtn').style.display = 'inline-block';
+        }
+
+        function hideResults() {
+            document.getElementById('resultsSection').classList.remove('active');
+        }
+
+        function showError(message) {
+            document.getElementById('errorSection').classList.add('active');
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        function hideError() {
+            document.getElementById('errorSection').classList.remove('active');
+        }
+
+        /**
+         * Utility functions
+         */
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

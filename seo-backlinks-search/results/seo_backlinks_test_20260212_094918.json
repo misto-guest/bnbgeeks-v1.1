@@ -1,0 +1,92 @@
+{
+  "query": "seo backlinks test",
+  "scraped_at": "2026-02-12T09:49:18.648351",
+  "region": "us",
+  "pages_requested": 1,
+  "pages_scraped": 1,
+  "total_results": 10,
+  "new_results": 10,
+  "duplicate_results": 0,
+  "results": [
+    {
+      "position": 1,
+      "title": "Free Backlink checker - SEO Review Tools",
+      "link": "https://www.seoreviewtools.com/valuable-backlinks-checker/",
+      "snippet": "The Free Backlink Checker is developed to give you access to the backlink profile of any site on the web. See who is linking to you and research your best ...",
+      "domain": "www.seoreviewtools.com",
+      "scraped_at": "2026-02-12T09:49:17.995414"
+    },
+    {
+      "position": 2,
+      "title": "Free Backlink Checker by Ahrefs",
+      "link": "https://ahrefs.com/backlink-checker",
+      "snippet": "Check any website's authority \u00b7 See domain and page-level metrics for any target \u00b7 Monitor the growth and decline of backlink profiles \u00b7 Get a complete breakdown ...",
+      "domain": "ahrefs.com",
+      "scraped_at": "2026-02-12T09:49:17.995442"
+    },
+    {
+      "position": 3,
+      "title": "Backlink Checker | Check Backlinks for free with Seobility",
+      "link": "https://www.seobility.net/en/backlinkchecker/",
+      "snippet": "The Seobility Backlink Checker lets you check the backlinks of any website. Simply enter the domain name or specific URL you want to analyze.",
+      "domain": "www.seobility.net",
+      "scraped_at": "2026-02-12T09:49:17.995455"
+    },
+    {
+      "position": 4,
+      "title": "Backlink Checker: Find Out Who Links to Any Website for Free",
+      "link": "https://www.semrush.com/analytics/backlinks/",
+      "snippet": "Backlink Analytics is a free tool to analyze a website's backlinks. See backlinks, referring domains, and more.",
+      "domain": "www.semrush.com",
+      "scraped_at": "2026-02-12T09:49:17.995466"
+    },
+    {
+      "position": 5,
+      "title": "Free Backlink Checker With Historical and New/Lost Link Data",
+      "link": "https://neilpatel.com/backlinks/",
+      "snippet": "Backlink Checker. Find out who links to you and your competition with our free backlink checker. Use it to build links and boost your rankings.",
+      "domain": "neilpatel.com",
+      "scraped_at": "2026-02-12T09:49:17.995477"
+    },
+    {
+      "position": 6,
+      "title": "Free Backlink Checker - Moz Link Explorer",
+      "link": "https://moz.com/link-explorer",
+      "snippet": "Check your backlink success metrics, including Domain Authority, Page Authority, Spam Score, and complete link counts to any site.",
+      "domain": "moz.com",
+      "scraped_at": "2026-02-12T09:49:17.995489"
+    },
+    {
+      "position": 7,
+      "title": "Free Backlink Checker - SE Ranking",
+      "link": "https://seranking.com/backlink-checker.html",
+      "snippet": "Perform an in-depth analysis of any backlink profile with this free backlink checker tool. Get fast, accurate results and a comprehensive database.",
+      "domain": "seranking.com",
+      "scraped_at": "2026-02-12T09:49:17.995499"
+    },
+    {
+      "position": 8,
+      "title": "Backlinks Test - SEO Site Checkup",
+      "link": "https://seositecheckup.com/tools/backlinks-test",
+      "snippet": "Quickly view the number and quality of backlinks found for your website.",
+      "domain": "seositecheckup.com",
+      "scraped_at": "2026-02-12T09:49:17.995509"
+    },
+    {
+      "position": 9,
+      "title": "Majestic.com: SEO Backlink Checker & Link Building Toolset",
+      "link": "https://majestic.com/",
+      "snippet": "Develop backlink strategies with our Link Intelligence data, build the strongest SEO backlink campaigns to drive organic traffic and boost your rankings ...",
+      "domain": "majestic.com",
+      "scraped_at": "2026-02-12T09:49:17.995521"
+    },
+    {
+      "position": 10,
+      "title": "Free Backlink Checker SEO Tool - SEOptimer",
+      "link": "https://www.seoptimer.com/backlink-checker/",
+      "snippet": "SEOptimer's Free Backlink Checker Tool will show any site's most important backlink metrics as well as their top pages, anchors and more.",
+      "domain": "www.seoptimer.com",
+      "scraped_at": "2026-02-12T09:49:17.995531"
+    }
+  ]
+}

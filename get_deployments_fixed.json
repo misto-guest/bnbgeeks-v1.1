@@ -1,0 +1,7 @@
+{
+  "operationName": "ServiceDeployments",
+  "query": "query ServiceDeployments($id: String!) { service(id: $id) { deployments { edges { node { id status createdAt } } } } }",
+  "variables": {
+    "id": "0d8c45bd-2218-4766-b390-4d102b757157"
+  }
+}

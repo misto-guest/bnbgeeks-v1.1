@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - SEO Query Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🔍</span>
+                <span class="brand-name">SEO Query Manager</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/queries">Queries</a></li>
+                <li><a href="/results" class="active">Results</a></li>
+                <li><a href="/logs">Logs</a></li>
+                <li><a href="/settings">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Results</h1>
+        </div>
+
+        <!-- Query Selector -->
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="querySelect">Select Query</label>
+                    <select id="querySelect" onchange="loadResults()">
+                        <option value="">-- Select a query --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Display -->
+        <div id="resultsContainer" style="display: none;">
+            <!-- Latest Results -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Latest Results</h2>
+                    <div class="card-actions">
+                        <button onclick="exportResults('csv')" class="btn btn-sm">📥 Export CSV</button>
+                        <button onclick="exportResults('json')" class="btn btn-sm">📥 Export JSON</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="stats-summary">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Found</span>
+                            <span class="stat-value" id="totalFound">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">New Unique</span>
+                            <span class="stat-value" id="newUnique">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Duplicates</span>
+                            <span class="stat-value" id="duplicates">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pages</span>
+                            <span class="stat-value" id="pagesScraped">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Last Run</span>
+                            <span class="stat-value" id="lastRun">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results List -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>New Links</h2>
+                </div>
+                <div class="card-body">
+                    <div id="resultsList" class="results-list">
+                        <p class="loading">Loading results...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historical Results -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Historical Results</h2>
+                </div>
+                <div class="card-body">
+                    <div id="historyList" class="history-list">
+                        <p class="loading">Loading history...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/api.js"></script>
+    <script>
+        let currentQueryId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQueries();
+        });
+
+        async function loadQueries() {
+            try {
+                const data = await api.get('/api/queries');
+                const queries = data.queries;
+                
+                const select = document.getElementById('querySelect');
+                select.innerHTML = '<option value="">-- Select a query --</option>';
+                
+                queries.forEach(q => {
+                    const option = document.createElement('option');
+                    option.value = q.id;
+                    option.textContent = q.query;
+                    select.appendChild(option);
+                });
+                
+            } catch (error) {
+                console.error('Failed to load queries:', error);
+            }
+        }
+
+        async function loadResults() {
+            const queryId = document.getElementById('querySelect').value;
+            
+            if (!queryId) {
+                document.getElementById('resultsContainer').style.display = 'none';
+                return;
+            }
+            
+            currentQueryId = queryId;
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Load latest results
+            loadLatestResults(queryId);
+            
+            // Load history
+            loadHistory(queryId);
+        }
+
+        async function loadLatestResults(queryId) {
+            try {
+                const result = await api.get(`/api/results/${queryId}`);
+                
+                // Update stats
+                document.getElementById('totalFound').textContent = result.total_results || 0;
+                document.getElementById('newUnique').textContent = result.new_results || 0;
+                document.getElementById('duplicates').textContent = result.duplicate_results || 0;
+                document.getElementById('pagesScraped').textContent = 
+                    `${result.pages_scraped || 0}/${result.pages_requested || 0}`;
+                document.getElementById('lastRun').textContent = 
+                    formatDate(result.scraped_at);
+                
+                // Display results
+                const results = result.results || [];
+                
+                if (results.length === 0) {
+                    document.getElementById('resultsList').innerHTML = `
+                        <p class="empty-state">No new results found</p>
+                    `;
+                    return;
+                }
+                
+                const html = results.map((r, i) => `
+                    <div class="result-item">
+                        <div class="result-position">${r.position || i + 1}</div>
+                        <div class="result-content">
+                            <a href="${escapeHtml(r.link)}" target="_blank" class="result-title">
+                                ${escapeHtml(r.title)}
+                            </a>
+                            <div class="result-domain">${escapeHtml(r.domain || r.link)}</div>
+                            <div class="result-snippet">${escapeHtml(r.snippet || '')}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('resultsList').innerHTML = html;
+                
+            } catch (error) {
+                if (error.message && error.message.includes('404')) {
+                    document.getElementById('resultsList').innerHTML = `
+                        <p class="empty-state">No results yet for this query</p>
+                    `;
+                } else {
+                    console.error('Failed to load results:', error);
+                    document.getElementById('resultsList').innerHTML = `
+                        <p class="error">Failed to load results: ${error.message}</p>
+                    `;
+                }
+            }
+        }
+
+        async function loadHistory(queryId) {
+            try {
+                const data = await api.get(`/api/results/${queryId}/all`);
+                const results = data.results;
+                
+                if (results.length === 0) {
+                    document.getElementById('historyList').innerHTML = `
+                        <p class="empty-state">No historical results</p>
+                    `;
+                    return;
+                }
+                
+                const html = results.slice(1).map(r => `
+                    <div class="history-item">
+                        <div class="history-date">${formatDate(r.scraped_at)}</div>
+                        <div class="history-stats">
+                            <span>📊 ${r.total_results} total</span>
+                            <span>✨ ${r.new_results} new</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('historyList').innerHTML = html || '<p class="empty-state">No additional history</p>';
+                
+            } catch (error) {
+                console.error('Failed to load history:', error);
+            }
+        }
+
+        async function exportResults(format) {
+            if (!currentQueryId) return;
+            
+            const url = `/api/export/${currentQueryId}?format=${format}`;
+            window.location.href = url + `&api_key=${api.getApiKey()}`;
+        }
+
+        function formatDate(isoString) {
+            if (!isoString) return 'Never';
+            
+            const date = new Date(isoString);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+            
+            if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+            if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
+            
+            return date.toLocaleDateString();
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Query Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🔍</span>
+                <span class="brand-name">SEO Query Manager</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="active">Dashboard</a></li>
+                <li><a href="/queries">Queries</a></li>
+                <li><a href="/results">Results</a></li>
+                <li><a href="/logs">Logs</a></li>
+                <li><a href="/settings">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <p class="subtitle">Monitor your SEO scraping operations</p>
+        </div>
+
+        <!-- Status Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon active-queries">📊</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="activeQueries">-</div>
+                    <div class="stat-label">Active Queries</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon total-results">🔗</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalResults">-</div>
+                    <div class="stat-label">Total Results</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon new-results">✨</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="newResults">-</div>
+                    <div class="stat-label">New Links Found</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon system-status">✅</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="systemStatus">-</div>
+                    <div class="stat-label">System Status</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="card-body">
+                <div class="quick-actions">
+                    <button onclick="location.href='/queries'" class="btn btn-primary">
+                        ➕ Add New Query
+                    </button>
+                    <button onclick="runAllQueries()" class="btn btn-secondary">
+                        ▶️ Run All Queries
+                    </button>
+                    <button onclick="location.href='/logs'" class="btn btn-outline">
+                        📋 View Logs
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Recent Activity</h2>
+                <button onclick="refreshLogs()" class="btn-icon" title="Refresh">🔄</button>
+            </div>
+            <div class="card-body">
+                <div id="recentLogs" class="logs-list">
+                    <p class="loading">Loading logs...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/api.js"></script>
+    <script>
+        // Load status on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStatus();
+            loadRecentLogs();
+            
+            // Refresh every 30 seconds
+            setInterval(() => {
+                loadStatus();
+                loadRecentLogs();
+            }, 30000);
+        });
+
+        async function loadStatus() {
+            try {
+                const data = await api.get('/api/status');
+                
+                document.getElementById('activeQueries').textContent = data.active_queries;
+                document.getElementById('totalResults').textContent = data.total_results.toLocaleString();
+                document.getElementById('newResults').textContent = data.total_new_results.toLocaleString();
+                document.getElementById('systemStatus').textContent = data.status;
+                
+            } catch (error) {
+                console.error('Failed to load status:', error);
+            }
+        }
+
+        async function loadRecentLogs() {
+            try {
+                const data = await api.get('/api/logs');
+                const logs = data.logs.slice(0, 10);
+                
+                if (logs.length === 0) {
+                    document.getElementById('recentLogs').innerHTML = '<p class="empty-state">No recent activity</p>';
+                    return;
+                }
+                
+                const html = logs.map(log => {
+                    const statusClass = log.status === 'completed' ? 'status-success' : 
+                                        log.status === 'error' ? 'status-error' : 'status-running';
+                    const statusIcon = log.status === 'completed' ? '✅' : 
+                                     log.status === 'error' ? '❌' : '🔄';
+                    
+                    return `
+                        <div class="log-item">
+                            <div class="log-status ${statusClass}">${statusIcon}</div>
+                            <div class="log-content">
+                                <div class="log-message">${formatLogMessage(log)}</div>
+                                <div class="log-meta">
+                                    <span class="log-time">${formatTime(log.started_at)}</span>
+                                    <span class="log-type">${log.run_type}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                document.getElementById('recentLogs').innerHTML = html;
+                
+            } catch (error) {
+                console.error('Failed to load logs:', error);
+                document.getElementById('recentLogs').innerHTML = '<p class="error">Failed to load logs</p>';
+            }
+        }
+
+        function formatLogMessage(log) {
+            if (log.query) {
+                return `${log.run_type}: ${log.query}`;
+            }
+            return log.message || log.run_type;
+        }
+
+        function formatTime(isoString) {
+            const date = new Date(isoString);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+            
+            if (diff < 60) return 'Just now';
+            if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+            return date.toLocaleDateString();
+        }
+
+        function refreshLogs() {
+            loadRecentLogs();
+        }
+
+        async function runAllQueries() {
+            if (!confirm('Run all active queries? This may take a while.')) {
+                return;
+            }
+            
+            const queries = await api.get('/api/queries');
+            let completed = 0;
+            
+            for (const query of queries.queries) {
+                try {
+                    await api.post(`/api/results/${query.id}/run`);
+                    completed++;
+                } catch (error) {
+                    console.error(`Failed to run query ${query.id}:`, error);
+                }
+            }
+            
+            alert(`Completed ${completed} of ${queries.queries.length} queries`);
+            loadStatus();
+            loadRecentLogs();
+        }
+    </script>
+</body>
+</html>
